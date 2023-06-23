@@ -33,7 +33,7 @@ const Chat = () => {
 
   return (
     <>
-      <div>
+      <div className="w-[80%] bg-slate-300">
         <Login/>
         <ul>
           {chatHistory.map((chat, index) => (
