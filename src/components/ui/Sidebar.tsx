@@ -7,11 +7,10 @@ const Sidebar = () => {
     return (
         <>
             <div className="w-[20%] h-screen bg-slate-500">
-                <div className="">
+                <h1 className="text-4xl font-extrabold text-center py-10 underline text-slate-800">TheGuides</h1>
                     <Subject />
                     <ChatHistory />
                     <Footer />
-                </div>
             </div>
         </>
     );
