@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { useMutation } from "react-query";
-import { fetchResponse } from "../pages/api/openai";
+import { fetchResponse } from "../../pages/api/openai";
+import Login from "./sub-components/Login";
 
 interface ChatMessage {
   sender: "user" | "bot";
@@ -31,23 +32,26 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <ul>
-        {chatHistory.map((chat, index) => (
-          <li key={index}>
-            <strong>{chat.sender}</strong>: {chat.message}
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button type="submit">Send</button>
-      </form>
-    </div>
+    <>
+      <div>
+        <Login/>
+        <ul>
+          {chatHistory.map((chat, index) => (
+            <li key={index}>
+              <strong>{chat.sender}</strong>: {chat.message}
+            </li>
+          ))}
+        </ul>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="submit" className="bg-[#A530ED]">Send</button>
+        </form>
+      </div>
+    </>
   );
 };
 
