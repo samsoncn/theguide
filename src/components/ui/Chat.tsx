@@ -1,8 +1,8 @@
 import { useState, FormEvent } from "react";
 import { useMutation } from "react-query";
-import { fetchResponse } from "../../pages/api/openai";
+import { fetchResponse } from "../../pages/api/openai/api";
 import Login from "./sub-components/Login";
-import {PiPaperPlaneRightBold} from "react-icons/pi";
+import { PiPaperPlaneRightBold } from "react-icons/pi";
 
 interface ChatMessage {
   sender: "user" | "bot";
@@ -45,19 +45,28 @@ const Chat = () => {
           ))}
         </ul>
         {/* Input Section */}
-        <div className="absolute bottom-0 flex mx-auto w-max">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-row mx-auto mb-10">
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full p-2 rounded-lg border-none"
-              placeholder="Type your question here....."
-            />
-            <button type="submit" className="bg-[#A530ED] mx-2 px-4 rounded-lg"><PiPaperPlaneRightBold className="text-white text-xl"/></button>
-          </form>
+        <div className="absolute bottom-0 flex mx-5 w-max">
+          <div className="mb-5 ">
+            <form onSubmit={handleSubmit} className="flex flex-row mb-5">
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full p-2 rounded-lg border-none text-md focus:outline-none"
+                placeholder="Type your question here....."
+              />
+              <button
+                type="submit"
+                className="bg-[#A530ED] mx-2 px-4 rounded-lg cursor-pointer"
+              >
+                <PiPaperPlaneRightBold className="text-white text-xl" />
+              </button>
+            </form>
+            <p>
+              TheGuides.ai Version 1.0. Our mission is to guide people to learn
+              with AI. Your feedback will help us improve.
+            </p>
+          </div>
         </div>
       </div>
     </>
