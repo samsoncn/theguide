@@ -36,11 +36,11 @@
 
 // app.listen(PORT, () => console.log("server is running" + PORT));
 
-// const readline = require("readline");
+const readline = require("readline");
 
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-// rl.question("what are you building: \n", (title) => console.log(title));
+rl.question("what are you building: \n", (title: any) => console.log(title));

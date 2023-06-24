@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
 
 const ChatHistory = () => {
-  return <div>ChatHistory</div>
-}
+  return <div>ChatHistory</div>;
+};
 
-export default ChatHistory
+export default ChatHistory;

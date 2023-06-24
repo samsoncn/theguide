@@ -1,7 +1,8 @@
 const readline = require("readline");
 const express = require("express");
-const { generateMeta } = require("./controllers/openaiController");
+const { generateMeta } = require("./src/controllers/openaiController");
 
+// Testing on Terminal
 // const rl = readline.createInterface({
 //   input: process.stdin,
 //   output: process.stdout,
@@ -9,6 +10,7 @@ const { generateMeta } = require("./controllers/openaiController");
 
 // rl.question("what are you building: \n", generateMeta);
 
+////////////////////////////////////////////////////////////////
 // app setup
 const app = express();
 app.listen(4000, () => console.log("listening for requests on port 4000"));
@@ -19,3 +21,4 @@ app.use(express.static("src"));
 
 // routes
 app.post("./openai/meta", generateMeta);
+////////////////////////////////////////////////////////////////
