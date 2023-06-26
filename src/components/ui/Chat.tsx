@@ -1,35 +1,56 @@
-import { useState, FormEvent } from "react";
-import { useMutation } from "react-query";
-import { fetchResponse } from "../../pages/api/openai/api";
-import Login from "./sub-components/Login";
+import React, { useState } from "react";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
-
-interface ChatMessage {
-  sender: "user" | "bot";
-  message: string;
-}
+import Login from "./sub-components/Login";
+import axios from "axios";
 
 const Chat = () => {
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [chatLog, setChatLog] = useState<{ type: string; message: string }[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-  const mutation = useMutation(fetchResponse);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setChatHistory((oldChatHistory) => [
-      ...oldChatHistory,
-      { sender: "user", message },
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Add the user's message to the chat log
+    setChatLog((prevChatLog) => [
+      ...prevChatLog,
+      { type: "user", message: inputValue },
     ]);
-    mutation.mutate(message, {
-      onSuccess: (data: string) => {
-        setChatHistory((oldChatHistory) => [
-          ...oldChatHistory,
-          { sender: "bot", message: data },
+
+    // Send the user's message to the API
+    sendMessage(inputValue);
+
+    // Clear the input field
+    setInputValue("");
+  };
+
+  // fetching response data from openai model
+  const sendMessage = (message: string) => {
+    setIsLoading(true);
+
+    // Send a request from /api/chat to our own API route
+    axios
+      .post(
+        "/api/chat",
+        { message: message },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        // similar process as user input
+        // receiving response from openai to the chat log
+        setChatLog((prevChatLog) => [
+          ...prevChatLog,
+          { type: "bot", message: response.data.choices[0].message.content },
         ]);
-      },
-    });
-    setMessage("");
+        setIsLoading(false);
+      })
+
+      // reset loading data and console.log error message
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   };
 
   return (
@@ -37,21 +58,18 @@ const Chat = () => {
       <div className="w-[80%] bg-slate-300">
         {/* Login Button */}
         <Login />
-        <ul>
-          {chatHistory.map((chat, index) => (
-            <li key={index}>
-              <strong>{chat.sender}</strong>: {chat.message}
-            </li>
-          ))}
-        </ul>
+        {chatLog.map((message, index) => (
+          <div key={index}>{message.message}</div>
+        ))}
+
         {/* Input Section */}
         <div className="absolute bottom-0 flex mx-5 w-max">
           <div className="mb-5 ">
             <form onSubmit={handleSubmit} className="flex flex-row mb-5">
               <input
                 type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 className="w-full p-2 rounded-lg border-none text-md focus:outline-none"
                 placeholder="Type your question here....."
               />
