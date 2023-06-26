@@ -1,7 +1,13 @@
 import React from "react";
 
 const ChatHistory = () => {
-  return <div>ChatHistory</div>;
+  return (
+    <>
+    <div className="">
+    History
+    </div>
+    </>
+  );
 };
 
 export default ChatHistory;
