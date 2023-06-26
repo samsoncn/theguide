@@ -62,9 +62,9 @@ const Chat = () => {
                 <PiPaperPlaneRightBold className="text-white text-xl" />
               </button>
             </form>
-            <p>
+            <p className="text-[#616161]">
               TheGuides.ai Version 1.0. Our mission is to guide people to learn
-              with AI. Your feedback will help us improve.
+              with AI. Your feedback will help us improve!
             </p>
           </div>
         </div>

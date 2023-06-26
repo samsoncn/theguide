@@ -4,7 +4,7 @@ import { FiSun, FiSettings } from "react-icons/fi";
 const Footer = () => {
   return (
     <>
-      <div className="absolute bottom-0 w-[20%] h-[10%] flex items-center justify-center">
+      <div className="fixed bottom-0 w-[20%] h-[10%] flex items-center justify-center">
 
         {/* Ligh/Dark Button */}
         <button className="w-[50%] h-fit" >
