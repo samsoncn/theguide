@@ -1,28 +1,32 @@
-// src/pages/api/chat.ts
-import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchGPT3Response } from "@/utils/openai";
+import { NextApiRequest, NextApiResponse } from "next";
+import axios from "axios";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const message = req.body.message;
+    // extract the message from the request body.
+    const { message } = req.body;
 
-    if (!message) {
-      return res
-        .status(400)
-        .json({ error: "Message is missing from the request body." });
-    }
+    const url = "https://api.openai.com/v1/chat/completions";
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    };
+    const data = {
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }],
+      max_tokens: 20,
+    };
 
     try {
-      const gpt3Response = await fetchGPT3Response(message);
-      res.status(200).json({ response: gpt3Response });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Failed to fetch response from GPT-3." });
+      const response = await axios.post(url, data, { headers: headers });
+      res.status(200).json(response.data);
+    } catch (error) {
+      // when OpenAI API request fails
+      res.status(500).json({ error: (error as any).message });
     }
   } else {
-    // Handle any other HTTP method
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    //  when a non-POST request is received
+    res.status(405).json({ error: "Method not allowed" });
   }
 };
 
