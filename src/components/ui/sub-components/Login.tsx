@@ -6,14 +6,13 @@ const Login = () => {
   return (
     <>
       <div className="container mx-auto sm:px-4">
-        <div className="bg-slate-500 w-fit h-fit p-2 rounded-3xl absolute right-0 mr-5 mt-5 flex my-auto items-center">
-          username
+        <div className="backdrop-blur-md backdrop-brightness-50 w-fit h-fit p-2 rounded-3xl absolute right-0 mr-5 mt-5 flex my-auto items-center">
           <Image
           src={PlaceHolder}
           alt="User Image"
           height={30}
           width={30}
-          className="rounded-full ml-2"
+          className="rounded-full"
           />
         </div>
       </div>
