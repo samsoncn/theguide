@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const data = {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: message }],
-      max_tokens: 20,
+      max_tokens: 100,
     };
 
     try {
