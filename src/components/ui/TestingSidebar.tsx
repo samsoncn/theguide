@@ -30,6 +30,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
     setSelectedOption(e.target.id);
   };
 
+
   return (
     <>
       <div className="w-[20%] h-screen bg-[#282828] overflow-hidden">
@@ -55,7 +56,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
                 htmlFor="1"
                 className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:shadow-inner peer-checked:shadow-[#9f9f9f] peer-checked:bg-black peer-checked:font-bold peer-checked:text-gray-100"
               >
-                <Subject />
+                Subject
               </label>
             </div>
             <div>
@@ -71,7 +72,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
                 htmlFor="2"
                 className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:shadow-inner peer-checked:shadow-[#9f9f9f] peer-checked:bg-black peer-checked:font-bold peer-checked:text-gray-100"
               >
-                Chat History
+                History
               </label>
             </div>
           </div>
@@ -80,9 +81,14 @@ const TestingSidebar: React.FC<SidebarProps> = ({
             onClick={onNewChat}
             className="text-white flex my-2 border-2 rounded-lg p-2 justify-center items-center text-center w-full hover:shadow-lg hover:shadow-black"
           >
-            <BiSolidMessageSquareAdd className="mr-1" />
+            <BiSolidMessageSquareAdd className="mr-2" />
             New Chat
           </button>
+          {/* Subject */}
+          {selectedOption === "1" &&
+            <Subject />
+          }
+          {/* History */}
           {selectedOption === "2" && (
             <ChatHistory
               chatLogs={chatLogs}

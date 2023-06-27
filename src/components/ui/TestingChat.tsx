@@ -130,7 +130,7 @@ const TestingChat: React.FC<ChatProps> = ({
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
               }`}
             >
-              <span className="mr-4 bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
+              <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                 {message.type === "user" ? <FaUserGraduate /> : <BsRobot />}
               </span>
               <div className="" key={index}>
@@ -149,7 +149,7 @@ const TestingChat: React.FC<ChatProps> = ({
             </div>
           )}{" "}
         </div>
-        <div className="h-[14%] z-[50] flex items-center bg-transparent border-transparent">
+        <div className="h-[12%] z-[50] flex items-center bg-transparent border-transparent">
           <div className="flex flex-col w-full items-center">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
@@ -166,7 +166,7 @@ const TestingChat: React.FC<ChatProps> = ({
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
             </form>
-            <p className="text-[#6d6d6d] font-light mt-4 text-sm text-center">
+            <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
               TheGuides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
             </p>

@@ -62,7 +62,7 @@ const Chat = () => {
         {/* Login Button */}
         <Login />
 
-        <div className="h-[85%] overflow-y-auto flex flex-col justify-center items-center mt-2">
+        <div className="h-[80%] overflow-y-auto flex flex-col justify-center items-center mt-2">
           {/* Conversation */}
           {chatLog.map((message, index) => (
             <div
@@ -91,7 +91,7 @@ const Chat = () => {
         </div>
 
         {/* Input Section */}
-        <div className="h-[14%] z-[50] flex items-center bg-transparent border-transparent">
+        <div className="h-[15%] z-[50] flex items-center bg-transparent border-transparent">
           <div className="flex flex-col w-full items-center">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
