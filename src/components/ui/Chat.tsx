@@ -83,7 +83,7 @@ const Chat = () => {
         </div>
 
         {/* Input Section */}
-        <div className="h-[10%] z-[50] flex items-center bg-transparent border-transparent">
+        <div className="h-[14%] z-[50] flex items-center bg-transparent border-transparent">
           <div className="flex flex-col w-full items-center">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
@@ -95,7 +95,7 @@ const Chat = () => {
               />
               <button
                 type="submit"
-                className="absolute right-0 p-2 rounded-lg cursor-pointer"
+                className="absolute right-0 p-3 rounded-lg cursor-pointer"
               >
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
