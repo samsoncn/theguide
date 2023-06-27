@@ -4,6 +4,7 @@ import Login from "./sub-components/Login";
 import axios from "axios";
 import { FaUserGraduate } from "react-icons/fa";
 import { BsRobot } from "react-icons/bs";
+import ResponseLoadingAnimation from "./sub-components/ResponseLoadingAnimation";
 
 const Chat = () => {
   const [inputValue, setInputValue] = useState("");
@@ -80,6 +81,13 @@ const Chat = () => {
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div key={chatLog.length} className="flex justify-start ">
+              <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">
+                <ResponseLoadingAnimation />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Input Section */}
