@@ -61,20 +61,21 @@ const Chat = () => {
         {/* Login Button */}
         <Login />
 
-        <div className="h-[80%] flex flex-col justify-center items-center">
+        <div className="h-[88%] flex flex-col justify-center items-center">
           {/* Conversation */}
           {chatLog.map((message, index) => (
-            <div className={`text-lg text-white font-mono flex mt-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar overflow-y-auto bg-gradient-to-r from-[#0b235a] to-slate-600 ${message.type === 'bot' && 'bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100'}`}>
+            <div
+              className={`text-md text-white font-mono flex mt-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar overflow-y-auto bg-gradient-to-r from-[#0b235a] to-slate-600 ${
+                message.type === "bot" &&
+                "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
+              }`}
+            >
               {/* Icons */}
               <span className="mr-2 bg-slate-600 p-2 text-white h-full shadow shadow-[#000000]">
-                {
-                  message.type === "user" ? <FaUserGraduate /> : <BsRobot />
-                }
+                {message.type === "user" ? <FaUserGraduate /> : <BsRobot />}
               </span>
               {/* Chat Message */}
-              <div
-                className="h-fit leading-loose"
-                key={index}>
+              <div className="h-fit leading-loose" key={index}>
                 {message.message}
               </div>
             </div>
@@ -82,15 +83,14 @@ const Chat = () => {
         </div>
 
         {/* Input Section */}
-        <div className="h-[20%] flex justify-center items-center">
+        <div className="h-[12%] flex justify-center items-center">
           <div className="flex flex-col w-full items-center justify-center">
-            <form className="w-[75%] relative flex"
-              onSubmit={handleSubmit}>
+            <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-[100%] rounded-lg bg-[#2e2e2e] p-4 text-gray-300 shadow-lg shadow-[#000000]"
+                className="w-[100%] rounded-lg bg-[#2e2e2e] p-4 text-gray-300 shadow-lg shadow-[#000000] focus:outline-none"
                 placeholder="Type your question here....."
               />
               <button
