@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface Message {
   type: string;
@@ -19,17 +19,20 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({
   chatLogs,
   setCurrentChatId,
 }) => {
+
   return (
-    <div>
-      {/* <h2>Chat History</h2> */}
-      <div className="overflow-y-auto flex flex-col">
-        {Object.values(chatLogs).map((chatLog) => (
+    <>
+      <div className="overflow-y-auto flex flex-col h-[75%]">
+        {/* reversed chatlog */}
+        {Object.values(chatLogs).reverse().map((chatLog) => (
           <div
             onClick={() => setCurrentChatId(chatLog.id)}
             key={chatLog.id}
-            className="text-base text-white flex items-center"
+            className="text-sm text-white h-fit flex items-center"
           >
-            <p>Chat ID: {chatLog.id}</p>
+            <p className="border-b-2 p-2">
+              Chat ID: {chatLog.id}
+            </p>
             {/* <h3>Conversation:</h3>
             {chatLog.log.map((message, index) => (
               <p key={index}>
@@ -39,7 +42,7 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
