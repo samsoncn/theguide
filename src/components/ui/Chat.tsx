@@ -65,7 +65,7 @@ const Chat = () => {
           {/* Conversation */}
           {chatLog.map((message, index) => (
             <div
-              className={`text-base text-white font-mono flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
+              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
                 message.type === "bot" &&
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
               }`}
