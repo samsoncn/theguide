@@ -30,7 +30,6 @@ const TestingSidebar: React.FC<SidebarProps> = ({
     setSelectedOption(e.target.id);
   };
 
-
   return (
     <>
       <div className="w-[20%] h-screen bg-[#282828] overflow-hidden">
@@ -85,9 +84,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
             New Chat
           </button>
           {/* Subject */}
-          {selectedOption === "1" &&
-            <Subject />
-          }
+          {selectedOption === "1" && <Subject />}
           {/* History */}
           {selectedOption === "2" && (
             <ChatHistory
