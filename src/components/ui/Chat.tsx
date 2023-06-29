@@ -36,6 +36,7 @@ const Chat = () => {
     axios
       .post(
         "/api/chat",
+        // "/api/agent",
         { message: message },
         { headers: { "Content-Type": "application/json" } }
       )
@@ -44,7 +45,10 @@ const Chat = () => {
         // receiving response from openai to the chat log
         setChatLog((prevChatLog) => [
           ...prevChatLog,
+          // for chat.ts server
           { type: "bot", message: response.data.choices[0].message.content },
+          // for agent.ts server
+          // { type: "bot", message: response.data.text },
         ]);
         setIsLoading(false);
       })
