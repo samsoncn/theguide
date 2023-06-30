@@ -35,8 +35,8 @@ const Chat = () => {
     // Send a request from /api/chat to our own API route
     axios
       .post(
-        "/api/chat",
-        // "/api/agent",
+        // "/api/chat",
+        "/api/agent",
         { message: message },
         { headers: { "Content-Type": "application/json" } }
       )

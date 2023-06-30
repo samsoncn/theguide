@@ -3,7 +3,6 @@ import axios from "axios";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    
     // extract the message from the request body.
     const { message } = req.body;
 
@@ -19,6 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     };
 
     try {
+      console.log("2");
       const response = await axios.post(url, data, { headers: headers });
       res.status(200).json(response.data);
     } catch (error) {

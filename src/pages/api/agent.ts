@@ -1,4 +1,5 @@
 import { initializeAgentExecutorWithOptions } from "langchain/agents";
+import { LLMChain } from "langchain/chains";
 import { OpenAI } from "langchain/llms/openai";
 import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
@@ -29,12 +30,14 @@ async function getExecutor() {
 
   return executor;
 }
+// chain to combine LLMs and Prompts in Multi-Step Workflows
+// const chain = new LLMChain({ llm: model, prompt: prompt });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+// async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
+    console.log("1");
+
     const { input } = req.body;
 
     const executor = await getExecutor();
@@ -45,4 +48,5 @@ export default async function handler(
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
+export default handler;
