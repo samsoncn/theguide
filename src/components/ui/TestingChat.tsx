@@ -86,6 +86,8 @@ const TestingChat: React.FC<ChatProps> = ({
         const newMessage: Message = {
           type: "bot",
           message: response.data.choices[0].message.content,
+          // for agent.ts server
+          // message: response.data.text,
         };
         const newChatLog: ChatLog = {
           ...currentChatLog,
