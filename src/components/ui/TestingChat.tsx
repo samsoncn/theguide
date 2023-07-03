@@ -5,6 +5,7 @@ import ResponseLoadingAnimation from "./sub-components/ResponseLoadingAnimation"
 import axios from "axios";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
+import Link from "next/link";
 
 // Define message and chatlog interfaces
 interface Message {
@@ -78,7 +79,7 @@ const TestingChat: React.FC<ChatProps> = ({
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .post("/api/chat", JSON.stringify({ message: message }), {
+      .post("/api/agent", JSON.stringify({ message: message }), {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -168,6 +169,9 @@ const TestingChat: React.FC<ChatProps> = ({
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
             </form>
+            <Link href="/api/python">
+              <code className="font-mono font-bold">api/index.py</code>
+            </Link>
             <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
               TheGuides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
