@@ -6,8 +6,10 @@ import { Calculator } from "langchain/tools/calculator";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const model = new OpenAI({
+  modelName: "gpt-3.5-turbo",
   openAIApiKey: process.env.OPENAI_API_KEY, // Replace "YOUR-API-KEY" with your actual OpenAI API key
   temperature: 0.8, // Adjust the temperature value to control the randomness of the responses
+  maxTokens: 100,
 });
 const tools = [
   new SerpAPI(process.env.SERPAPI_API_KEY, {
