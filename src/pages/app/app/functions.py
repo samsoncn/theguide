@@ -3,8 +3,10 @@
 import os
 
 # Pizza, Order, Review classes are defined in the db.py file in the app package which is why app.db is used. Importing Session object as well.
-from app.db import Session, Pizza, Order, Review
-from app.prompts import QA_PROMPT
+# from app.db import Session, Pizza, Order, Review
+# from app.prompts import QA_PROMPT
+from db import Session, Pizza, Order, Review
+from prompts import QA_PROMPT
 import json
 from langchain.llms import OpenAI
 
@@ -12,7 +14,8 @@ from langchain.llms import OpenAI
 The RetrievalQA class is a question-answering model that uses a retrieval-based approach to answer questions. It works by first retrieving a set of candidate answers from a large corpus of text, and then ranking the candidates based on their relevance to the question.
 '''
 from langchain.chains import RetrievalQA
-from app.store import get_vectorstore
+# from app.store import get_vectorstore
+from store import get_vectorstore
 
 
 '''
