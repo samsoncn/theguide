@@ -19,12 +19,8 @@ def create_chain() -> AgentExecutor:
 
 
 app = FastAPI()
-llm = OpenAI(modelName="gpt-3.5-turbo",openai_api_key=OPENAI_API_KEY,temperature=0.8,maxTokens=100)
-
-tools = load_tools(["serpapi"], llm=llm)
-
-agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
 templates = Jinja2Templates(directory="templates")
+chain = create_chain()
 
 
 @app.get("/api/chat")
