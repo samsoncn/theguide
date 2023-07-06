@@ -1,6 +1,6 @@
 # This is the regular store database
 
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
+from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -15,7 +15,7 @@ class Pizza(Base):
     # Define a column named 'name' of type String.
     name = Column(String)
     # Define a column named 'price' of type float.
-    price = Column(float)
+    price = Column(Float)
     # Define a relationship between the Pizza and Order tables.
     # This creates a 'orders' attribute on Pizza instances that can be used to access related Order instances.
     # The 'back_populates' argument specifies the name of the attribute on the Order class that should be used to access related Pizza instances.

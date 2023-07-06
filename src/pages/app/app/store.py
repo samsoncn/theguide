@@ -32,7 +32,8 @@ def create_store():
     # Splits the text into chunks recursively which is used to create the embeddings (vectors).
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=200, # If a document is longer than chunk_size, it will be split into multiple chunks.
-        overlap_size=50 # The overlap_size is the number of characters that will be shared between chunks.
+        # overlap_size=50 # The overlap_size is the number of characters that will be shared between chunks.
+        chunk_overlap=50 # The overlap_size is the number of characters that will be shared between chunks.
     )
 
     documents = text_splitter.split_documents(docs)
