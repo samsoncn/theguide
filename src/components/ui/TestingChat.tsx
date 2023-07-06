@@ -40,6 +40,8 @@ const TestingChat: React.FC<ChatProps> = ({
   // Get the current chat log from the array of chat logs
   const currentChatLog = chatLogs[currentChatId];
 
+  const [htmlContent, setHtmlContent] = useState("");
+
   // If the current chat log is not found, log an error and do not render the component
   if (!currentChatLog) {
     console.error("Invalid chat ID");
