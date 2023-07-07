@@ -4,10 +4,6 @@ from typing import Any, Dict, List
 
 from pydantic import Field
 
-from langchain.callbacks.manager import (
-    AsyncCallbackManagerForChainRun,
-    CallbackManagerForChainRun,
-)
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.chains.qa_with_sources.base import BaseQAWithSourcesChain
 from langchain.docstore.document import Document
@@ -44,20 +40,12 @@ class RetrievalQAWithSourcesChain(BaseQAWithSourcesChain):
 
         return docs[:num_docs]
 
-    def _get_docs(
-        self, inputs: Dict[str, Any], *, run_manager: CallbackManagerForChainRun
-    ) -> List[Document]:
+    def _get_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         question = inputs[self.question_key]
-        docs = self.retriever.get_relevant_documents(
-            question, callbacks=run_manager.get_child()
-        )
+        docs = self.retriever.get_relevant_documents(question)
         return self._reduce_tokens_below_limit(docs)
 
-    async def _aget_docs(
-        self, inputs: Dict[str, Any], *, run_manager: AsyncCallbackManagerForChainRun
-    ) -> List[Document]:
+    async def _aget_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         question = inputs[self.question_key]
-        docs = await self.retriever.aget_relevant_documents(
-            question, callbacks=run_manager.get_child()
-        )
+        docs = await self.retriever.aget_relevant_documents(question)
         return self._reduce_tokens_below_limit(docs)

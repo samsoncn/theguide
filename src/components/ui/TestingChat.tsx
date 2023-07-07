@@ -7,11 +7,23 @@ import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
 import Link from "next/link";
 
-// Define message and chatlog interfaces
+// Declare new interface
 interface Message {
-  type: string;
-  message: string;
+  role: string;
+  content: string;
 }
+
+interface Conversation {
+  messages: Message[];
+}
+
+// Define message and chatlog interfaces
+// Old
+
+// interface Message {
+//   type: string;
+//   message: string;
+// }
 
 interface ChatLog {
   id: string;
@@ -40,6 +52,8 @@ const TestingChat: React.FC<ChatProps> = ({
   // Get the current chat log from the array of chat logs
   const currentChatLog = chatLogs[currentChatId];
 
+  const [htmlContent, setHtmlContent] = useState("");
+
   // If the current chat log is not found, log an error and do not render the component
   if (!currentChatLog) {
     console.error("Invalid chat ID");
@@ -50,7 +64,7 @@ const TestingChat: React.FC<ChatProps> = ({
     event.preventDefault();
     // Log the input value
     // console.log(`Input value: ${inputValue}`);
-    const newMessage: Message = { type: "user", message: inputValue };
+    const newMessage: Message = { role: "user", content: inputValue };
     // console.log(`newMessage: ${newMessage}`); // Log the
     const newChatLog: ChatLog = {
       ...currentChatLog,
@@ -72,34 +86,68 @@ const TestingChat: React.FC<ChatProps> = ({
   };
 
   // send a message to the server
-  const sendMessage = (message: string) => {
-    // console.log(`Sending the following input to the server: ${message}`);
+  // const sendMessage = (message: string) => {
+  //   // console.log(`Sending the following input to the server: ${message}`);
 
+  //   // Show the loading spinner
+  //   setIsLoading(true);
+  //   // Send a POST request to the server
+  //   axios
+  //     .post("/conversation", JSON.stringify({ query: message }), {
+  //       headers: { "Content-Type": "application/json" },
+  //     })
+  //     .then((response) => {
+  //       // Add the bot's response to the chat log
+  //       const newMessage: Message = {
+  //         type: "bot",
+  //         // message: response.data.choices[0].message.content,
+  //         // for agent.ts server
+  //         message: response.data.text,
+  //       };
+  //       const newChatLog: ChatLog = {
+  //         ...currentChatLog,
+  //         log: [...currentChatLog.log, newMessage],
+  //       };
+
+  //       // Update the chat logs state
+  //       setChatLogs({
+  //         ...chatLogs,
+  //         [currentChatId]: newChatLog,
+  //       });
+  //       // Set loading state to false to hide the loading spinner
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setIsLoading(false);
+  //       console.log(error);
+  //     });
+  // };
+  const sendMessage = (message: string, conversation: Conversation) => {
     // Show the loading spinner
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .post("/api/agent", JSON.stringify({ message: message }), {
+      .post("/conversation", JSON.stringify({ query: message, conversation }), {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
+        console.log(response);
         // Add the bot's response to the chat log
-        const newMessage: Message = {
-          type: "bot",
-          message: response.data.choices[0].message.content,
-          // for agent.ts server
-          // message: response.data.text,
-        };
-        const newChatLog: ChatLog = {
-          ...currentChatLog,
-          log: [...currentChatLog.log, newMessage],
-        };
+        // const newMessage: Message = {
+        //   role: "bot",
+        //   content: response.data.response,
+        // };
+        // console.log(response.data.response);
+        // const newChatLog: ChatLog = {
+        //   ...currentChatLog,
+        //   log: [...currentChatLog.log, newMessage],
+        // };
 
-        // Update the chat logs state
-        setChatLogs({
-          ...chatLogs,
-          [currentChatId]: newChatLog,
-        });
+        // // Update the chat logs state
+        // setChatLogs({
+        //   ...chatLogs,
+        //   [currentChatId]: newChatLog,
+        // });
         // Set loading state to false to hide the loading spinner
         setIsLoading(false);
       })
@@ -110,15 +158,35 @@ const TestingChat: React.FC<ChatProps> = ({
   };
 
   // A useEffect that sends the message when shouldSendMessage is set to true
+  //  Old
+
+  // useEffect(() => {
+  //   if (shouldSendMessage) {
+  //     // console.log(inputValue);
+  //     sendMessage(inputValue, );
+  //     setShouldSendMessage(false);
+  //     // solution: reset input bar here
+  //     setInputValue("");
+  //   }
+  // }, [shouldSendMessage, inputValue]);
+  // A useEffect that sends the message when shouldSendMessage is set to true
   useEffect(() => {
     if (shouldSendMessage) {
-      // console.log(inputValue);
-      sendMessage(inputValue);
+      // Get the current conversation from the chat logs state
+      const currentConversation = chatLogs[currentChatId].log.map(
+        (message) => ({
+          role: message.role,
+          content: message.content,
+        })
+      );
+
+      // Send the message along with the current conversation
+      sendMessage(inputValue, { messages: currentConversation });
       setShouldSendMessage(false);
       // solution: reset input bar here
       setInputValue("");
     }
-  }, [shouldSendMessage, inputValue]);
+  }, [shouldSendMessage, inputValue, chatLogs, currentChatId]);
 
   return (
     <>
@@ -129,15 +197,15 @@ const TestingChat: React.FC<ChatProps> = ({
             <div
               key={index}
               className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
-                message.type === "bot" &&
+                message.role === "bot" &&
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
               }`}
             >
               <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
-                {message.type === "user" ? <FaUserGraduate /> : <BsRobot />}
+                {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
               </span>
               <div className="" key={index}>
-                {message.message}
+                {message.content}
               </div>
             </div>
           ))}
