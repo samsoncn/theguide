@@ -1,5 +1,5 @@
 # This file lists the dependencies of the project.
-# use "pip install -r .\requirements.txt" to install all dependencies.
+# use "pip install -r ./requirements.txt" to install all dependencies.
 
 # faiss-cpu is a library for efficient similarity search and clustering of dense vectors.
 faiss-cpu==1.7.4

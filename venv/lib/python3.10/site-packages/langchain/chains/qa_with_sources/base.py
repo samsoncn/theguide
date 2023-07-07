@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import inspect
 import re
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
@@ -116,12 +115,7 @@ class BaseQAWithSourcesChain(Chain, ABC):
         return values
 
     @abstractmethod
-    def _get_docs(
-        self,
-        inputs: Dict[str, Any],
-        *,
-        run_manager: CallbackManagerForChainRun,
-    ) -> List[Document]:
+    def _get_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         """Get docs to run questioning over."""
 
     def _call(
@@ -130,14 +124,7 @@ class BaseQAWithSourcesChain(Chain, ABC):
         run_manager: Optional[CallbackManagerForChainRun] = None,
     ) -> Dict[str, str]:
         _run_manager = run_manager or CallbackManagerForChainRun.get_noop_manager()
-        accepts_run_manager = (
-            "run_manager" in inspect.signature(self._get_docs).parameters
-        )
-        if accepts_run_manager:
-            docs = self._get_docs(inputs, run_manager=_run_manager)
-        else:
-            docs = self._get_docs(inputs)  # type: ignore[call-arg]
-
+        docs = self._get_docs(inputs)
         answer = self.combine_documents_chain.run(
             input_documents=docs, callbacks=_run_manager.get_child(), **inputs
         )
@@ -154,12 +141,7 @@ class BaseQAWithSourcesChain(Chain, ABC):
         return result
 
     @abstractmethod
-    async def _aget_docs(
-        self,
-        inputs: Dict[str, Any],
-        *,
-        run_manager: AsyncCallbackManagerForChainRun,
-    ) -> List[Document]:
+    async def _aget_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         """Get docs to run questioning over."""
 
     async def _acall(
@@ -168,13 +150,7 @@ class BaseQAWithSourcesChain(Chain, ABC):
         run_manager: Optional[AsyncCallbackManagerForChainRun] = None,
     ) -> Dict[str, Any]:
         _run_manager = run_manager or AsyncCallbackManagerForChainRun.get_noop_manager()
-        accepts_run_manager = (
-            "run_manager" in inspect.signature(self._aget_docs).parameters
-        )
-        if accepts_run_manager:
-            docs = await self._aget_docs(inputs, run_manager=_run_manager)
-        else:
-            docs = await self._aget_docs(inputs)  # type: ignore[call-arg]
+        docs = await self._aget_docs(inputs)
         answer = await self.combine_documents_chain.arun(
             input_documents=docs, callbacks=_run_manager.get_child(), **inputs
         )
@@ -204,22 +180,10 @@ class QAWithSourcesChain(BaseQAWithSourcesChain):
         """
         return [self.input_docs_key, self.question_key]
 
-    def _get_docs(
-        self,
-        inputs: Dict[str, Any],
-        *,
-        run_manager: CallbackManagerForChainRun,
-    ) -> List[Document]:
-        """Get docs to run questioning over."""
+    def _get_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         return inputs.pop(self.input_docs_key)
 
-    async def _aget_docs(
-        self,
-        inputs: Dict[str, Any],
-        *,
-        run_manager: AsyncCallbackManagerForChainRun,
-    ) -> List[Document]:
-        """Get docs to run questioning over."""
+    async def _aget_docs(self, inputs: Dict[str, Any]) -> List[Document]:
         return inputs.pop(self.input_docs_key)
 
     @property
