@@ -43,6 +43,7 @@ async def shutdown_event():
 
 @app.post("/conversation") # This is the first endpoint for the rest api.    
 # This is the first endpoint for the rest api.
+@app.get("/api/conversation")
 async def query_endpoint(interaction: Interaction):
     # The interaction is passed to the handler.
     response = handler.send_response(interaction.query)

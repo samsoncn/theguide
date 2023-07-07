@@ -81,7 +81,7 @@ const TestingChat: React.FC<ChatProps> = ({
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .post("/api/agent", JSON.stringify({ message: message }), {
+      .post("/api/conversation", JSON.stringify({ message: message }), {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
