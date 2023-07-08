@@ -5,14 +5,13 @@ import TestingChat from "./TestingChat";
 
 // Define the type for the message
 interface Message {
-  type: string;
-  message: string;
+  role: string;
+  content: string;
 }
 
-// Define the type for the chat log
-interface ChatLog {
+interface Conversation {
   id: string;
-  log: Message[];
+  messages: Message[];
 }
 
 const WholeScreen = () => {
@@ -20,8 +19,8 @@ const WholeScreen = () => {
   const initialChatId = uuidv4();
 
   // State variables for chat logs and current chat ID
-  const [chatLogs, setChatLogs] = useState<Record<string, ChatLog>>({
-    [initialChatId]: { id: initialChatId, log: [] },
+  const [chatLogs, setChatLogs] = useState<Record<string, Conversation>>({
+    [initialChatId]: { id: initialChatId, messages: [] },
   });
   const [currentChatId, setCurrentChatId] = useState(initialChatId);
 
@@ -31,7 +30,7 @@ const WholeScreen = () => {
     const newChatId = uuidv4();
 
     // Create a new chat log with an empty log array
-    const newChatLog: ChatLog = { id: newChatId, log: [] };
+    const newChatLog: Conversation = { id: newChatId, messages: [] };
 
     // Update the chat logs state by adding the new chat log
     setChatLogs({
