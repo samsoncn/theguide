@@ -13,6 +13,7 @@ interface Message {
 interface Conversation {
   id: string;
   messages: Message[];
+<<<<<<< HEAD
 }
 interface Interaction {
   conversation: Conversation;
@@ -22,6 +23,8 @@ interface ChatComponentProps {
   currentChatId: string;
   interaction: Interaction;
   setChatLogs: (chatLogs: Record<string, Conversation>) => void;
+=======
+>>>>>>> a78fc61 (updated frontend interface structure based on backend models)
 }
 
 const WholeScreen = () => {

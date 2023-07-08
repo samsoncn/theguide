@@ -16,6 +16,10 @@ interface Message {
 interface Conversation {
   messages: Message[];
 }
+interface Interaction {
+  conversation: Conversation;
+  query: string;
+}
 
 // Define message and chatlog interfaces
 // Old
@@ -35,6 +39,18 @@ interface ChatProps {
   currentChatId: string;
   setChatLogs: (chatLogs: Record<string, ChatLog>) => void;
   chatLogs: Record<string, ChatLog>;
+}
+
+async function sendQueryToFastAPI(query: string) {
+  const response = await fetch("/conversation", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+  const data = await response.json();
+  return data.response;
 }
 
 const TestingChat: React.FC<ChatProps> = ({
@@ -86,55 +102,21 @@ const TestingChat: React.FC<ChatProps> = ({
   };
 
   // send a message to the server
-  // const sendMessage = (message: string) => {
-  //   // console.log(`Sending the following input to the server: ${message}`);
+  const sendMessage = (message: string) => {
+    // console.log(`Sending the following input to the server: ${message}`);
 
-  //   // Show the loading spinner
-  //   setIsLoading(true);
-  //   // Send a POST request to the server
-  //   axios
-  //     .post("/conversation", JSON.stringify({ query: message }), {
-  //       headers: { "Content-Type": "application/json" },
-  //     })
-  //     .then((response) => {
-  //       // Add the bot's response to the chat log
-  //       const newMessage: Message = {
-  //         type: "bot",
-  //         // message: response.data.choices[0].message.content,
-  //         // for agent.ts server
-  //         message: response.data.text,
-  //       };
-  //       const newChatLog: ChatLog = {
-  //         ...currentChatLog,
-  //         log: [...currentChatLog.log, newMessage],
-  //       };
-
-  //       // Update the chat logs state
-  //       setChatLogs({
-  //         ...chatLogs,
-  //         [currentChatId]: newChatLog,
-  //       });
-  //       // Set loading state to false to hide the loading spinner
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setIsLoading(false);
-  //       console.log(error);
-  //     });
-  // };
-  const sendMessage = (message: string, conversation: Conversation) => {
     // Show the loading spinner
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .get(`http://127.0.0.1:8000/conversation?query=${inputValue}`,
-      // JSON.stringify({ query: message, conversation }),
+      .get(
+        `http://127.0.0.1:8000/conversation?query=${inputValue}`
+        // JSON.stringify({ query: message, conversation }),
         // {
         //   headers: { "Content-Type": "application/json" },
         // }
       )
       .then((response) => {
-        console.log(response);
         // Add the bot's response to the chat log
         const newMessage: Message = {
           role: "bot",
@@ -146,11 +128,11 @@ const TestingChat: React.FC<ChatProps> = ({
           log: [...currentChatLog.log, newMessage],
         };
 
-        // // Update the chat logs state
-        // setChatLogs({
-        //   ...chatLogs,
-        //   [currentChatId]: newChatLog,
-        // });
+        // Update the chat logs state
+        setChatLogs({
+          ...chatLogs,
+          [currentChatId]: newChatLog,
+        });
         // Set loading state to false to hide the loading spinner
         setIsLoading(false);
       })
@@ -163,33 +145,15 @@ const TestingChat: React.FC<ChatProps> = ({
   // A useEffect that sends the message when shouldSendMessage is set to true
   //  Old
 
-  // useEffect(() => {
-  //   if (shouldSendMessage) {
-  //     // console.log(inputValue);
-  //     sendMessage(inputValue, );
-  //     setShouldSendMessage(false);
-  //     // solution: reset input bar here
-  //     setInputValue("");
-  //   }
-  // }, [shouldSendMessage, inputValue]);
-  // A useEffect that sends the message when shouldSendMessage is set to true
   useEffect(() => {
     if (shouldSendMessage) {
-      // Get the current conversation from the chat logs state
-      const currentConversation = chatLogs[currentChatId].log.map(
-        (message) => ({
-          role: message.role,
-          content: message.content,
-        })
-      );
-
-      // Send the message along with the current conversation
-      sendMessage(inputValue, { messages: currentConversation });
+      // console.log(inputValue);
+      sendMessage(inputValue);
       setShouldSendMessage(false);
       // solution: reset input bar here
       setInputValue("");
     }
-  }, [shouldSendMessage, inputValue, chatLogs, currentChatId]);
+  }, [shouldSendMessage, inputValue]);
 
   return (
     <>
@@ -199,9 +163,10 @@ const TestingChat: React.FC<ChatProps> = ({
           {currentChatLog.log.map((message, index) => (
             <div
               key={index}
-              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${message.role === "bot" &&
+              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
+                message.role === "bot" &&
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
-                }`}
+              }`}
             >
               <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                 {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
