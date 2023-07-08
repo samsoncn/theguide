@@ -1,6 +1,7 @@
 # Sever side
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 # from app.functions_definitions import functions
 # from app.functions_definitions import functions
 # from app.functions import api_functions, create_pizzas
@@ -22,10 +23,28 @@ import os
 from store import create_store
 from db import Session, Review, Order
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 
 app = FastAPI()
 handler = OpenAIHandler(api_functions, functions, system_message)
 load_dotenv()
+
+origins = ['http://localhost:3000']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# handle any exceptions from our controller
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, excecption):
+    print(f"{repr(excecption)}")
+    return PlainTextResponse(str(excecption.detail), status_code=excecption.status_code)
 
 # Life cycle events/hook. It will be called when the server starts, before the first request is processed.
 @app.on_event("startup")
