@@ -40,6 +40,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # handle any exceptions from our controller
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request, excecption):
@@ -64,6 +65,8 @@ async def shutdown_event():
 # This is the first endpoint for the rest api.
 async def query_endpoint(interaction: Interaction):
     # The interaction is passed to the handler.
+    # response = handler.send_response(interaction.query)
+    # query takes input from the user from the frontend.
     response = handler.send_response(interaction.query)
     return {"response": response}
 

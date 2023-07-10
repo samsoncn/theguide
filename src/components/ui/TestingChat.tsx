@@ -127,21 +127,24 @@ const TestingChat: React.FC<ChatProps> = ({
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .post("/conversation", JSON.stringify({ query: message, conversation }), {
-        headers: { "Content-Type": "application/json" },
-      })
+      .get(`http://127.0.0.1:8000/conversation?query=${inputValue}`,
+      // JSON.stringify({ query: message, conversation }),
+        // {
+        //   headers: { "Content-Type": "application/json" },
+        // }
+      )
       .then((response) => {
         console.log(response);
         // Add the bot's response to the chat log
-        // const newMessage: Message = {
-        //   role: "bot",
-        //   content: response.data.response,
-        // };
-        // console.log(response.data.response);
-        // const newChatLog: ChatLog = {
-        //   ...currentChatLog,
-        //   log: [...currentChatLog.log, newMessage],
-        // };
+        const newMessage: Message = {
+          role: "bot",
+          content: response.data.response,
+        };
+        console.log(response.data.response);
+        const newChatLog: ChatLog = {
+          ...currentChatLog,
+          log: [...currentChatLog.log, newMessage],
+        };
 
         // // Update the chat logs state
         // setChatLogs({
@@ -196,10 +199,9 @@ const TestingChat: React.FC<ChatProps> = ({
           {currentChatLog.log.map((message, index) => (
             <div
               key={index}
-              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
-                message.role === "bot" &&
+              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${message.role === "bot" &&
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
-              }`}
+                }`}
             >
               <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                 {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
