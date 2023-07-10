@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TestingSidebar from "./TestingSidebar";
 import TestingChat from "./TestingChat";
-// import Chat from "./Chat";
+import Chat from "./Chat";
 
 // Define the type for the message
 interface Message {
@@ -13,7 +13,6 @@ interface Message {
 interface Conversation {
   id: string;
   messages: Message[];
-<<<<<<< HEAD
 }
 interface Interaction {
   conversation: Conversation;
@@ -23,8 +22,6 @@ interface ChatComponentProps {
   currentChatId: string;
   interaction: Interaction;
   setChatLogs: (chatLogs: Record<string, Conversation>) => void;
-=======
->>>>>>> a78fc61 (updated frontend interface structure based on backend models)
 }
 
 const WholeScreen = () => {
@@ -68,7 +65,7 @@ const WholeScreen = () => {
         chatLogs={chatLogs}
         setCurrentChatId={setCurrentChatId}
       />
-      <TestingChat
+      <Chat
         currentChatId={currentChatId}
         interaction={interaction}
         setChatLogs={setChatLogs}
