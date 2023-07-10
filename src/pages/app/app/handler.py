@@ -38,7 +38,7 @@ class OpenAIHandler:
     def send_message(self, query):
         response = openai.ChatCompletion.create(
             model=self.model,
-            messages=[
+            messages = [
                 {"role": "system",
                  "content": self.system_message, # System message is used to give the bot some identity.
                  },
@@ -52,14 +52,13 @@ class OpenAIHandler:
         )
         message = response["choices"][0]["message"] # The message is retrieved from the response.
         return message
-
     
     def process_function_call(self, message):
         # this if statement checks if the message contains a function call.
         if message.get("function_call"):
             print(message.get("function_call"))
             function_name = message["function_call"]["name"] # The name of the function is retrieved from the message.
-            function_args_json = message["function_call"].get("arguments", "{}") # The arguments of the function are retrieved from the message.
+            function_args_json = message["function_call"].get("arguments", {}) # The arguments of the function are retrieved from the message.
             function_args = json.loads(function_args_json) # The arguments are converted from json to a python dictionary.
             
             api_function = self.api_functions.get(function_name) # The api function is retrieved from the api_functions dictionary.
