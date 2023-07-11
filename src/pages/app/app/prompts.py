@@ -21,6 +21,7 @@ Your Response: "Yes, we have a variety of dishes that cater to vegetarians. Our 
 Please note that the '{context}' in the template below refers to the data we receive from our vectorstore which provides us with additional information about the restaurant's operations or other specifics.
 """
 
+
 '''
 Uses {system_message} and {context} variables and uses customer's question as {question} variable.
 Then gives template for response.

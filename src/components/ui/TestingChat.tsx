@@ -6,51 +6,20 @@ import axios from "axios";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
 import Link from "next/link";
-
-// Declare new interface
 interface Message {
   role: string;
   content: string;
 }
 
-interface Conversation {
-  messages: Message[];
-}
-interface Interaction {
-  conversation: Conversation;
-  query: string;
-}
-
-// Define message and chatlog interfaces
-// Old
-
-// interface Message {
-//   type: string;
-//   message: string;
-// }
-
 interface ChatLog {
   id: string;
-  log: Message[];
+  messages: Message[];
 }
-
 // Define the properties that this component should receive
 interface ChatProps {
   currentChatId: string;
   setChatLogs: (chatLogs: Record<string, ChatLog>) => void;
   chatLogs: Record<string, ChatLog>;
-}
-
-async function sendQueryToFastAPI(query: string) {
-  const response = await fetch("/conversation", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  });
-  const data = await response.json();
-  return data.response;
 }
 
 const TestingChat: React.FC<ChatProps> = ({
@@ -68,8 +37,6 @@ const TestingChat: React.FC<ChatProps> = ({
   // Get the current chat log from the array of chat logs
   const currentChatLog = chatLogs[currentChatId];
 
-  const [htmlContent, setHtmlContent] = useState("");
-
   // If the current chat log is not found, log an error and do not render the component
   if (!currentChatLog) {
     console.error("Invalid chat ID");
@@ -84,7 +51,7 @@ const TestingChat: React.FC<ChatProps> = ({
     // console.log(`newMessage: ${newMessage}`); // Log the
     const newChatLog: ChatLog = {
       ...currentChatLog,
-      log: [...currentChatLog.log, newMessage],
+      messages: [...currentChatLog.messages, newMessage],
     };
 
     // Update the chat logs state
@@ -109,20 +76,23 @@ const TestingChat: React.FC<ChatProps> = ({
     setIsLoading(true);
     // Send a POST request to the server
     axios
-      .post("/conversation", JSON.stringify({ query: message }), {
-        headers: { "Content-Type": "application/json" },
-      })
+      .get(
+        `http://127.0.0.1:8000/conversation?query=${message}&`
+        // JSON.stringify({ query: message }),
+        // {
+        //   headers: { "Content-Type": "application/json" },
+        // }
+      )
       .then((response) => {
         // Add the bot's response to the chat log
         const newMessage: Message = {
           role: "bot",
-          // message: response.data.choices[0].message.content,
-          // for agent.ts server
-          content: response.data.text,
+          content: response.data.response,
         };
+        console.log(response.data.response);
         const newChatLog: ChatLog = {
           ...currentChatLog,
-          log: [...currentChatLog.log, newMessage],
+          messages: [...currentChatLog.messages, newMessage],
         };
 
         // Update the chat logs state
@@ -157,7 +127,7 @@ const TestingChat: React.FC<ChatProps> = ({
       <div className="w-[80%] bg-[#191919]">
         <Login />
         <div className="h-[85%] overflow-y-auto flex flex-col justify-center items-center mt-2">
-          {currentChatLog.log.map((message, index) => (
+          {currentChatLog.messages.map((message, index) => (
             <div
               key={index}
               className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
@@ -175,7 +145,7 @@ const TestingChat: React.FC<ChatProps> = ({
           ))}
           {isLoading && (
             <div
-              key={currentChatLog.log.length}
+              key={currentChatLog.messages.length}
               className="flex justify-start "
             >
               <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">

@@ -14,7 +14,7 @@ interface SidebarProps {
 // Define the type for the chat log
 interface ChatLog {
   id: string;
-  log: { type: string; message: string }[];
+  messages: { role: string; content: string }[];
 }
 
 const TestingSidebar: React.FC<SidebarProps> = ({

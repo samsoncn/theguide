@@ -9,17 +9,26 @@ interface Message {
   content: string;
 }
 
-interface Conversation {
+interface ChatLog {
   id: string;
   messages: Message[];
 }
+// interface Interaction {
+//   conversation: Conversation;
+//   query: string;
+// }
+// interface ChatComponentProps {
+//   currentChatId: string;
+//   interaction: Interaction;
+//   setChatLogs: (chatLogs: Record<string, Conversation>) => void;
+// }
 
 const WholeScreen = () => {
   // Generate an initial chat ID using the uuidv4 library
   const initialChatId = uuidv4();
 
   // State variables for chat logs and current chat ID
-  const [chatLogs, setChatLogs] = useState<Record<string, Conversation>>({
+  const [chatLogs, setChatLogs] = useState<Record<string, ChatLog>>({
     [initialChatId]: { id: initialChatId, messages: [] },
   });
   const [currentChatId, setCurrentChatId] = useState(initialChatId);
@@ -30,7 +39,7 @@ const WholeScreen = () => {
     const newChatId = uuidv4();
 
     // Create a new chat log with an empty log array
-    const newChatLog: Conversation = { id: newChatId, messages: [] };
+    const newChatLog: ChatLog = { id: newChatId, messages: [] };
 
     // Update the chat logs state by adding the new chat log
     setChatLogs({
@@ -41,6 +50,12 @@ const WholeScreen = () => {
     // Set the current chat ID to the new chat ID
     setCurrentChatId(newChatId);
   };
+
+  // Create an interaction object for the current conversation
+  // const interaction: Interaction = {
+  //   conversation: chatLogs[currentChatId],
+  //   query: "",
+  // };
 
   return (
     <div className="h-screen w-screen flex">
