@@ -15,6 +15,10 @@ interface ChatLog {
   id: string;
   messages: Message[];
 }
+interface Interaction {
+  conversation: ChatLog;
+  query: string;
+}
 // Define the properties that this component should receive
 interface ChatProps {
   currentChatId: string;
@@ -74,15 +78,19 @@ const TestingChat: React.FC<ChatProps> = ({
 
     // Show the loading spinner
     setIsLoading(true);
+    // Create an instance of the Interaction class
+    const interaction: Interaction = {
+      conversation: {
+        messages: currentChatLog.messages,
+        id: "",
+      },
+      query: message,
+    };
     // Send a POST request to the server
     axios
-      .get(
-        `http://127.0.0.1:8000/conversation?query=${message}&`
-        // JSON.stringify({ query: message }),
-        // {
-        //   headers: { "Content-Type": "application/json" },
-        // }
-      )
+      .post(`api/app/conversation`, interaction, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((response) => {
         // Add the bot's response to the chat log
         const newMessage: Message = {
