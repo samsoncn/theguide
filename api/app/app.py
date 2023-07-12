@@ -61,7 +61,7 @@ async def startup_event():
 async def shutdown_event():
     os.remove("pizza.db") # Remove the database connection.
 
-@app.post("/conversation") # This is the first endpoint for the rest api.    
+@app.post("/api/app/conversation") # This is the first endpoint for the rest api.    
 # This is the first endpoint for the rest api.
 async def query_endpoint(interaction: Interaction):
     # The interaction is passed to the handler.

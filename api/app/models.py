@@ -11,6 +11,7 @@ class Message(BaseModel):
 
 # Model for the conversation
 class Conversation(BaseModel):
+    id: str
     messages: List[Message]
     
 # Model for the interaction between user and bot 
