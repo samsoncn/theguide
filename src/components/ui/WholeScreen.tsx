@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TestingSidebar from "./TestingSidebar";
 import TestingChat from "./TestingChat";
+// import Chat from "./Chat";
 
 // Define the type for the message
 interface Message {
@@ -66,8 +67,8 @@ const WholeScreen = () => {
       />
       <TestingChat
         currentChatId={currentChatId}
-        setChatLogs={setChatLogs}
         chatLogs={chatLogs}
+        setChatLogs={setChatLogs}
       />
     </div>
   );
