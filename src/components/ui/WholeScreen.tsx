@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TestingSidebar from "./TestingSidebar";
 import TestingChat from "./TestingChat";
+// import Chat from "./Chat";
 
 // Define the type for the message
 interface Message {
@@ -13,15 +14,6 @@ interface ChatLog {
   id: string;
   messages: Message[];
 }
-// interface Interaction {
-//   conversation: Conversation;
-//   query: string;
-// }
-// interface ChatComponentProps {
-//   currentChatId: string;
-//   interaction: Interaction;
-//   setChatLogs: (chatLogs: Record<string, Conversation>) => void;
-// }
 
 const WholeScreen = () => {
   // Generate an initial chat ID using the uuidv4 library
@@ -51,12 +43,6 @@ const WholeScreen = () => {
     setCurrentChatId(newChatId);
   };
 
-  // Create an interaction object for the current conversation
-  // const interaction: Interaction = {
-  //   conversation: chatLogs[currentChatId],
-  //   query: "",
-  // };
-
   return (
     <div className="h-screen w-screen flex">
       <TestingSidebar
@@ -66,8 +52,8 @@ const WholeScreen = () => {
       />
       <TestingChat
         currentChatId={currentChatId}
-        setChatLogs={setChatLogs}
         chatLogs={chatLogs}
+        setChatLogs={setChatLogs}
       />
     </div>
   );
