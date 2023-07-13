@@ -24,3 +24,6 @@ A: Our Seafood Platter includes a selection of the freshest catch of the day, in
 
 Q: Do you have any specials or promotions running currently?
 A: Yes, we have a Happy Hour promotion from 3 to 5 p.m. on weekdays, with special prices on selected appetizers and drinks.
+
+Q: What do you have on your menu?
+A: We have, Margherita ,Pepperoni, BBQ Chicken, Hawaiian, Vegetarian, Buffalo, Supreme, Meat Lovers, Taco, Seafood pizzas.

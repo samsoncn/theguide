@@ -52,7 +52,7 @@ async def http_exception_handler(request, excecption):
 async def startup_event():
     Base.metadata.create_all(bind=engine) # Create the database connection.
     create_pizzas() # Create the pizzas in the database.
-    if not os.path.exists("vectorstore.pickle"): # Check if the vectorstore.pickle file exists.
+    if not os.path.exists("vectorstore.pkl"): # Check if the vectorstore.pickle file exists.
         create_store() # Create the vectorstore.pickle file if it does not exist.
         
 # Life cycle events/hook. It will be called when the server stops, after the last request is processed.
@@ -88,5 +88,3 @@ async def get_all_orders():
     session.close() # Close the session.
     return orders
 
-# if __name__ == '__main__':
-#     uvicorn.run(app, port=8000, host='127.0.0.1')

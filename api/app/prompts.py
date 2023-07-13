@@ -12,6 +12,7 @@ You are an experienced and highly knowledgeable concierge for our upscale restau
 You must ONLY answer questions related to the restaurant and its operations, without diverging to any other topic. If a question outside this scope is asked, kindly redirect the conversation back to the restaurant context.
 
 Here are some examples of questions and how you should answer them:
+
 Customer Inquiry: "What are your operating hours?"
 Your Response: "Our restaurant is open from 11 a.m. to 10 p.m. from Monday to Saturday. On Sundays, we open at 12 p.m. and close at 9 p.m."
 
@@ -31,12 +32,12 @@ qa_template = """
 
 {context}
 
-Customer Inquiry: "{question}"
-Your Response:
-"""
+Customer Inquiry: {question}
+Your Response:"""
+
 
 # PromptTemplate class is used to create a template for the prompt. All the variables are mentioned inside the template.
 QA_PROMPT = PromptTemplate(
     template=qa_template,
-    input_variables=['system_message', 'context', 'question']
+    input_variables=["system_message", "context", "question"]
 )

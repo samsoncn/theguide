@@ -6,7 +6,8 @@ import os
 # from app.db import Session, Pizza, Order, Review
 # from app.prompts import QA_PROMPT
 from db import Session, Pizza, Order, Review
-from prompts import QA_PROMPT
+# from prompts import QA_PROMPT
+import prompts
 import json
 from langchain.llms import OpenAI
 
@@ -72,14 +73,14 @@ def create_review(review_text: str):
 This function talks to the vector database
 '''
 def ask_vector_db(question: str):
-    llm = OpenAI(openai_api_key=os.environ('OPENAI_API_KEY')) # RetruevalQA class requires a language model to be passed to it.
+    llm = OpenAI(openai_api_key=os.environ.get("OPENAI_API_KEY")) # RetruevalQA class requires a language model to be passed to it.
     qa = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
         # The get_vectorstore() function is called to retrieve the vector store
         # The as_retriever() method is then called on the vector store object to create a retriever object.
-        retriever = get_vectorstore().as_retriever(),
-        chain_type_kwargs={"prompt": QA_PROMPT}
+        retriever=get_vectorstore().as_retriever(),
+        chain_type_kwargs={"prompt": prompts.QA_PROMPT, "system_message": prompts.system_message},
     )
     
     result = qa.run(question)
@@ -94,8 +95,8 @@ The LLM will use these keys to call the respective functions.
 api_functions = {
     "create_review": create_review,
     "create_order": create_order,
-    "ask_vector_db": ask_vector_db,
     "get_pizza_info": get_pizza_info,
+    "ask_vector_db": ask_vector_db,
 }
 
 
