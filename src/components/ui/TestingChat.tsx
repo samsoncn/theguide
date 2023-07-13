@@ -87,34 +87,39 @@ const TestingChat: React.FC<ChatProps> = ({
       query: message,
     };
     // Send a POST request to the server
-    axios
-      .post(`api/app/conversation`, interaction, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        // Add the bot's response to the chat log
-        const newMessage: Message = {
-          role: "bot",
-          content: response.data.response,
-        };
-        console.log(response.data.response);
-        const newChatLog: ChatLog = {
-          ...currentChatLog,
-          messages: [...currentChatLog.messages, newMessage],
-        };
+    try {
+      let result = axios
+        .post(`http://localhost:3000/api/app/conversation`, interaction, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((response) => {
+          // Add the bot's response to the chat log
+          const newMessage: Message = {
+            role: "bot",
+            content: response.data.response,
+          };
+          console.log(response.data.response);
+          const newChatLog: ChatLog = {
+            ...currentChatLog,
+            messages: [...currentChatLog.messages, newMessage],
+          };
 
-        // Update the chat logs state
-        setChatLogs({
-          ...chatLogs,
-          [currentChatId]: newChatLog,
+          // Update the chat logs state
+          setChatLogs({
+            ...chatLogs,
+            [currentChatId]: newChatLog,
+          });
+          // Set loading state to false to hide the loading spinner
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.log(error.response.data);
         });
-        // Set loading state to false to hide the loading spinner
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
-      });
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // A useEffect that sends the message when shouldSendMessage is set to true

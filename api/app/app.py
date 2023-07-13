@@ -25,7 +25,7 @@ from db import Session, Review, Order
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
-
+import uvicorn
 
 app = FastAPI()
 handler = OpenAIHandler(api_functions, functions, system_message)
@@ -88,4 +88,5 @@ async def get_all_orders():
     session.close() # Close the session.
     return orders
 
-
+# if __name__ == '__main__':
+#     uvicorn.run(app, port=8000, host='127.0.0.1')
