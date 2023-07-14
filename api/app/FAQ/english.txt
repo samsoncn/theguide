@@ -1,0 +1,29 @@
+Q: What is the subject-verb agreement rule? 
+A: The subject-verb agreement rule states that the verb must agree in number with the subject. For example, if the subject is singular, the verb must also be singular. If the subject is plural, the verb must also be plural.
+
+Q: What is the rule for using articles in English? 
+A: In English, there are two types of articles: definite (the) and indefinite (a/an). The definite article “the” is used to refer to specific or previously mentioned nouns. The indefinite article “a/an” is used to refer to non-specific or general nouns. The choice between “a” and “an” depends on the sound of the word that follows it. Use “a” before a word that starts with a consonant sound and “an” before a word that starts with a vowel sound.
+
+Q: What is the rule for using commas in a list? 
+A: When using commas in a list, you should place a comma after each item in the list except for the last item. For example: “I need to buy milk, eggs, and bread.” In some styles of writing, it’s also acceptable to omit the final comma before “and” or “or” (known as the Oxford comma).
+
+Q: What is the rule for using apostrophes to show possession? 
+A: To show possession with an apostrophe, you should add an apostrophe + s (‘s) to a singular noun or an apostrophe alone (’) to a plural noun that already ends in -s. For example: “The cat’s toy” (singular) and “The cats’ toy” (plural).
+
+Q: What is the rule for using capital letters in English? 
+A: In English, capital letters are used at the beginning of sentences and for proper nouns (names of people, places, organizations, etc.). They’re also used for the pronoun “I” and for the first letter of each word in titles (except for articles, conjunctions, and prepositions).
+
+Q: What is the rule for using adjectives in English? 
+A: Adjectives are words that describe nouns. In English, adjectives usually come before the noun they describe. For example: “a red apple.” When using multiple adjectives to describe a noun, there’s a specific order that adjectives should follow: opinion, size, age, shape, color, origin, material, purpose.
+
+Q: What is the rule for using prepositions in English? 
+A: Prepositions are words that show the relationship between a noun or pronoun and other words in a sentence. They’re usually used before a noun or pronoun to indicate location (in, on, under), direction (to, from), time (at, on), and other relationships. There’s no specific rule for which preposition to use in each situation; it depends on the context and meaning.
+
+Q: What is the rule for using pronouns in English? 
+A: Pronouns are words that take the place of nouns. In English, there are several types of pronouns including personal (I, me), possessive (mine), reflexive (myself), demonstrative (this), relative (who), and interrogative (what). The choice of pronoun depends on its role in the sentence (subject, object) and its relationship to other words.
+
+Q: What is the rule for using verb tenses in English? 
+A: Verb tenses indicate when an action takes place. In English, there are three main tenses: past, present, and future. Each tense has four forms: simple (I walked), progressive (I was walking), perfect (I have walked), and perfect progressive (I have been walking). The choice of tense and form depends on when the action takes place and whether it’s completed or ongoing.
+
+Q: What is the rule for using conjunctions in English? 
+A: Conjunctions are words that connect words, phrases or clauses. In English there are two types of conjunctions; coordinating conjunctions such as ‘and’, ‘but’, ‘or’, ‘so’, ‘yet’ which connect words or phrases of equal importance; subordinating conjunctions such as ‘because’, ‘although’, ‘while’, ‘if’ which connect dependent clauses to independent clauses.
