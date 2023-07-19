@@ -5,6 +5,7 @@ from dotenv import find_dotenv, load_dotenv
 
 
 class OpenAIHandler:
+    
     def __init__(
         self,
         api_functions,
