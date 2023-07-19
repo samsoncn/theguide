@@ -37,6 +37,3 @@ next-env.d.ts
 # DB
 pizza.db
 vectorstore.pkl
-
-# FAQ
-/api/app/FAQ/*.txt
