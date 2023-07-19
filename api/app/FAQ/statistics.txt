@@ -1,0 +1,29 @@
+Q: What is the difference between descriptive and inferential statistics? 
+A: Descriptive statistics summarize and describe data, while inferential statistics use sample data to make inferences about a population.
+
+Q: What is a statistical model? 
+A: A statistical model is a mathematical representation of the relationship between variables, often used to make predictions or test hypotheses.
+
+Q: What is a Type I error? 
+A: A Type I error occurs when a true null hypothesis is rejected.
+
+Q: What is a Type II error? 
+A: A Type II error occurs when a false null hypothesis is not rejected.
+
+Q: What is the difference between parametric and nonparametric tests? 
+A: Parametric tests assume that the data being analyzed follows a specific distribution, while nonparametric tests do not make this assumption.
+
+Q: What is a chi-squared test? 
+A: A chi-squared test is a statistical test used to determine if there is an association between two categorical variables.
+
+Q: What is a t-test? 
+A: A t-test is a statistical test used to compare the means of two groups.
+
+Q: What is an F-test? 
+A: An F-test is a statistical test used to compare the variances of two groups.
+
+Q: What is multiple regression analysis? 
+A: Multiple regression analysis is a statistical method used to model the relationship between a dependent variable and multiple independent variables.
+
+Q: What is multivariate analysis? 
+A: Multivariate analysis refers to statistical methods used to analyze data with multiple variables.
