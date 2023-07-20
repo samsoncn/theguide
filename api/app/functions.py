@@ -5,7 +5,10 @@ import os
 # Pizza, Order, Review classes are defined in the db.py file in the app package which is why app.db is used. Importing Session object as well.
 # from app.db import Session, Pizza, Order, Review
 # from app.prompts import QA_PROMPT
-from db import Session, Pizza, Order, Review
+
+# from db import Session, Pizza, Order, Review
+from db import Session, Question, Answer, Review
+
 # from prompts import QA_PROMPT
 import prompts
 import json

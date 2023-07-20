@@ -55,15 +55,15 @@ Base = declarative_base()
 class Question(Base):
     __tablename__ = 'questions'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    price = Column(Float)
+    subject = Column(String)
+    queryAsked = Column(String)
     answers = relationship('Answer', back_populates='question')
     
     def to_json(self):
         return {
             'id': self.id,
-            'name': self.name,
-            'price': self.price
+            'subject': self.subject,
+            'queryAsked': self.queryAsked
         }
 
 class Answer(Base):
@@ -75,7 +75,7 @@ class Answer(Base):
     def to_json(self):
         return {
             'id': self.id,
-            'question': self.pizza.to_json()
+            'question': self.question.to_json()
         }
 
 
