@@ -30,6 +30,19 @@ Base = declarative_base()
 #             'price': self.price
 #         }
 
+class Question(Base):
+    __tablename__ = 'questions'
+    id = Column(Integer, primary_key=True)
+    subject = Column(String)
+    queryAsked = Column(String)
+    answers = relationship('Answer', back_populates='question')
+    
+    def to_json(self):
+        return {
+            'id': self.id,
+            'subject': self.subject,
+            'queryAsked': self.queryAsked
+        }
         
 # # Define a class named Order that inherits from the Base class.
 # class Order(Base):
@@ -52,19 +65,6 @@ Base = declarative_base()
 #             'pizza': self.pizza.to_json()
 #         }
 
-class Question(Base):
-    __tablename__ = 'questions'
-    id = Column(Integer, primary_key=True)
-    subject = Column(String)
-    queryAsked = Column(String)
-    answers = relationship('Answer', back_populates='question')
-    
-    def to_json(self):
-        return {
-            'id': self.id,
-            'subject': self.subject,
-            'queryAsked': self.queryAsked
-        }
 
 class Answer(Base):
     __tablename__ = 'answers'

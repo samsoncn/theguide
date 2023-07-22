@@ -1,10 +1,14 @@
-# Using functions.py to make queries from the databases to retrieve correct information for the bot to respond to the user.
+'''
+Using functions.py to make queries from the databases to retrieve correct information for the bot to respond to the user.
+'''
 
 import os
 
-# Pizza, Order, Review classes are defined in the db.py file in the app package which is why app.db is used. Importing Session object as well.
-# from app.db import Session, Pizza, Order, Review
-# from app.prompts import QA_PROMPT
+'''
+Pizza, Order, Review classes are defined in the db.py file in the app package which is why app.db is used. Importing Session object as well.
+from app.db import Session, Pizza, Order, Review
+from app.prompts import QA_PROMPT
+'''
 
 # from db import Session, Pizza, Order, Review
 from db import Session, Question, Answer, Review
@@ -25,27 +29,49 @@ from store import get_vectorstore
 '''
 This function is used to retrieve information about a specific pizza from the database.
 '''
-def get_pizza_info(pizza_name: str):
-    session = Session() # Creates a new session and gives access to the database.
-    '''
-    The query() method on the session object is used to query the database.
-    The query() method takes a model class (here Pizza) as an argument and returns a query object that can be used to query the database.
-    The filter() method on the query object is used to filter the results of the query in the name column.
-    The we extract the first result from the query using the first() method.
-    '''
-    pizza = session.query(Pizza).filter(Pizza.name == pizza_name).first()
+# def get_pizza_info(pizza_name: str):
+#     session = Session() # Creates a new session and gives access to the database.
+#     '''
+#     The query() method on the session object is used to query the database.
+#     The query() method takes a model class (here Pizza) as an argument and returns a query object that can be used to query the database.
+#     The filter() method on the query object is used to filter the results of the query in the name column.
+#     The we extract the first result from the query using the first() method.
+#     '''
+#     pizza = session.query(Pizza).filter(Pizza.name == pizza_name).first()
+#     session.close()
+#     if pizza:
+#         return json.dumps(pizza.to_json()) # Returns a JSON representation of the pizza object.
+#     else:
+#         return "Pizza not found"
+
+def get_subject_info(subject_name: str):
+    session = Session()
+    question = session.query(Question).filter(Question.subject == subject_name).first()
     session.close()
-    if pizza:
-        return json.dumps(pizza.to_json()) # Returns a JSON representation of the pizza object.
+    if question:
+        return json.dumps(question.to_json())
     else:
-        return "Pizza not found"
+        return "Subject is not found"
     
     
     
 '''
 This function is used to retrieve information about a specific order from the database.
 '''  
-def create_order(pizza_name: str):
+# def create_order(pizza_name: str):
+#     session = Session()
+#     pizza = session.query(Pizza).filter(Pizza.name == pizza_name).first()
+#     if pizza:
+#         order = Order(pizza=pizza) # Creates a new Order instance and sets the pizza attribute to the pizza object.
+#         session.add(order) # Adds the order to the session.
+#         session.commit() # Commits the changes to the database.
+#         session.close()
+#         return "Order created"
+#     else:
+#         session.close()
+#         return "Pizza not found"
+    
+def asked_question(pizza_name: str):
     session = Session()
     pizza = session.query(Pizza).filter(Pizza.name == pizza_name).first()
     if pizza:
@@ -57,6 +83,7 @@ def create_order(pizza_name: str):
     else:
         session.close()
         return "Pizza not found"
+
     
 
 '''
@@ -95,36 +122,62 @@ This dictionary is used to provide an API for interacting with the application.
 By mapping function names to function objects, the API can be used to call these functions remotely.
 The LLM will use these keys to call the respective functions.
 '''
+# api_functions = {
+#     "get_pizza_info": get_pizza_info,
+#     "create_order": create_order,
+#     "create_review": create_review,
+#     "ask_vector_db": ask_vector_db,
+# }
+
 api_functions = {
+    "get_subject_info": get_subject_info,
+    "asked_question": asked_question,
     "create_review": create_review,
-    "create_order": create_order,
-    "get_pizza_info": get_pizza_info,
     "ask_vector_db": ask_vector_db,
 }
 
 
-# Initialising the Pizza in the database
-def create_pizzas():
+'''
+Initialising the Pizza in the database
+'''
+
+# def create_pizzas():
+#     session = Session()
+    
+#     # Dictionary of pizza names and prices
+#     pizzas = {
+#         "Margherita": 7.99,
+#         "Pepperoni": 8.99,
+#         "BBQ Chicken": 9.99,
+#         "Hawaiian": 8.49,
+#         "Vegetarian": 7.99,
+#         "Buffalo": 9.49,
+#         "Supreme": 10.99,
+#         "Meat Lovers": 11.99,
+#         "Taco": 9.99,
+#         "Seafood": 12.99,
+#     }
+    
+#     # Loop through the pizzas dictionary and create a Pizza object for each pizza.
+#     for name, price in pizzas.items():
+#         pizza = Question(name=name, price=price) # Creates a new Pizza instance.
+#         session.add(pizza) # Adds the pizza to the session.
+
+def asked_questions():
     session = Session()
     
-    # Dictionary of pizza names and prices
-    pizzas = {
-        "Margherita": 7.99,
-        "Pepperoni": 8.99,
-        "BBQ Chicken": 9.99,
-        "Hawaiian": 8.49,
-        "Vegetarian": 7.99,
-        "Buffalo": 9.49,
-        "Supreme": 10.99,
-        "Meat Lovers": 11.99,
-        "Taco": 9.99,
-        "Seafood": 12.99,
+    # Sample dictionary
+    subjects = {
+        "Maths": "Mathematics information",
+        "English": "English information",
+        "Statistics": "Statistics information",
+        "Physics": "Physics information",
     }
     
     # Loop through the pizzas dictionary and create a Pizza object for each pizza.
-    for name, price in pizzas.items():
-        pizza = Pizza(name=name, price=price) # Creates a new Pizza instance.
-        session.add(pizza) # Adds the pizza to the session.
+    for subject, queryAsked in subjects.items():
+        question = Question(subject=subject, queryAsked=queryAsked) # Creates a new Pizza instance.
+        session.add(question) # Adds the pizza to the session.
         
     session.commit() # Commits the changes to the database.
     session.close()
