@@ -71,18 +71,18 @@ This function is used to retrieve information about a specific order from the da
 #         session.close()
 #         return "Pizza not found"
     
-def asked_question(pizza_name: str):
+def asked_question(subject_name: str):
     session = Session()
-    pizza = session.query(Pizza).filter(Pizza.name == pizza_name).first()
-    if pizza:
-        order = Order(pizza=pizza) # Creates a new Order instance and sets the pizza attribute to the pizza object.
-        session.add(order) # Adds the order to the session.
-        session.commit() # Commits the changes to the database.
+    question = session.query(Question).filter(Question.subject == subject_name).first()
+    if question:
+        answer = Answer(question=question)
+        session.add(answer)
+        session.commit()
         session.close()
-        return "Order created"
+        return "Subject Found, solution processing"
     else:
         session.close()
-        return "Pizza not found"
+        return "Subject not found"
 
     
 
@@ -166,7 +166,6 @@ Initialising the Pizza in the database
 def asked_questions():
     session = Session()
     
-    # Sample dictionary
     subjects = {
         "Maths": "Mathematics information",
         "English": "English information",
@@ -174,10 +173,12 @@ def asked_questions():
         "Physics": "Physics information",
     }
     
-    # Loop through the pizzas dictionary and create a Pizza object for each pizza.
+    '''
+    Loop through the pizzas dictionary and create a Pizza object for each pizza.
+    '''
     for subject, queryAsked in subjects.items():
-        question = Question(subject=subject, queryAsked=queryAsked) # Creates a new Pizza instance.
-        session.add(question) # Adds the pizza to the session.
+        question = Question(subject=subject, queryAsked=queryAsked) 
+        session.add(question)
         
-    session.commit() # Commits the changes to the database.
+    session.commit()
     session.close()
