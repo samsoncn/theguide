@@ -3,6 +3,7 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+
 import mysql.connector
 
 Base = declarative_base()
@@ -106,7 +107,7 @@ class Review(Base):
 # })
 
 # Create a session factory that uses the database engine to create new sessions.
-engine = create_engine("sqlite:///pizzadb.db")
+engine = create_engine("sqlite:///questions.db")
 Session = sessionmaker(bind=engine)
 # Create all the tables defined in your models
 # Base.metadata.create_all(engine)
