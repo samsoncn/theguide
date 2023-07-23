@@ -3,6 +3,7 @@ import Subject from "./sub-components/Subject";
 import ChatHistory from "./sub-components/ChatHistory";
 import Footer from "./sub-components/Footer";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
 
 // Define the props for the Sidebar component
 interface SidebarProps {
@@ -30,13 +31,22 @@ const TestingSidebar: React.FC<SidebarProps> = ({
     setSelectedOption(e.target.id);
   };
 
+  // Collapsable component of the sidebar for medium and small screens
+  const [isOpen, setIsOpen] = useState(true);
+  // const toggleSidebar = () => setIsOpen(!isOpen);
+
   return (
     <>
-      <div className="w-[20%] h-screen bg-[#282828] overflow-hidden">
-        <h1 className="text-4xl font-extrabold text-center py-10 underline text-slate-200">
-          TheGuides
-        </h1>
-
+        <button
+        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg-hidden"
+        onClick={() => setIsOpen(!isOpen)}
+        >
+          <BsReverseLayoutSidebarInsetReverse/>
+        </button>
+      <div className={`${isOpen ? 'w-[20%]' : 'w-0'} 'h-screen bg-[#282828] overflow-hidden'`}>
+          <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 underline text-slate-200">
+            TheGuides
+          </h1>
         <div className="mx-5 rounded-xl h-[75%]">
           <div
             className="grid grid-cols-2 space-x-2 rounded-xl bg-[#ffffff] shadow-inner shadow-black p-2"
