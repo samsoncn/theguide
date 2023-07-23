@@ -50,9 +50,14 @@ async def shutdown_event():
     os.remove("questions.db")
 
 
+# @app.post("/api/app/conversation")
+# async def query_endpoint(interaction: Interaction):
+#     response = handler.send_response(interaction.query)
+#     return {"response": response}
+
 @app.post("/api/app/conversation")
-async def query_endpoint(interaction: Interaction):
-    response = handler.send_response(interaction.query)
+async def query_endpoint(subject: str):
+    response = handler.send_response(subject)
     return {"response": response}
 
 
