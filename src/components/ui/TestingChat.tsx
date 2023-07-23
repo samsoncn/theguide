@@ -167,7 +167,7 @@ const TestingChat: React.FC<ChatProps> = ({
             </div>
           )}{" "}
         </div>
-        <div className="h-[12%] z-[50] flex items-center bg-transparent border-transparent">
+        <div className="h-[10%] z-[50] flex items-center bg-transparent border-transparent">
           <div className="flex flex-col w-full items-center">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
@@ -184,9 +184,9 @@ const TestingChat: React.FC<ChatProps> = ({
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
             </form>
-            <Link href="/api/python">
+            {/* <Link href="/api/python">
               <code className="font-mono font-bold">api/index.py</code>
-            </Link>
+            </Link> */}
             <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
               TheGuides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!

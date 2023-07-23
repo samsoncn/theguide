@@ -59,7 +59,7 @@ const WholeScreen = () => {
   // };
 
   return (
-    <div className="h-screen w-screen flex">
+    <div className="h-screen w-screen flex bg-[#191919]">
       <TestingSidebar
         onNewChat={handleNewChat}
         chatLogs={chatLogs}
