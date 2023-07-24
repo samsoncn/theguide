@@ -1,15 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 from functions_definitions import functions
-from functions_definitions import functions
 from functions import api_functions, asked_questions
 from handler import OpenAIHandler
 from models import Interaction
-from db import Base, engine
+from db import Base, engine, Session, Review, Answer
 from prompts import system_message
 import os
 from store import create_store
-from db import Session, Review, Answer
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -50,15 +48,15 @@ async def shutdown_event():
     os.remove("questions.db")
 
 
-# @app.post("/api/app/conversation")
-# async def query_endpoint(interaction: Interaction):
-#     response = handler.send_response(interaction.query)
-#     return {"response": response}
-
 @app.post("/api/app/conversation")
-async def query_endpoint(subject: str):
-    response = handler.send_response(subject)
+async def query_endpoint(interaction: Interaction):
+    response = handler.send_response(interaction.query)
     return {"response": response}
+
+# @app.post("/api/app/conversation")
+# async def query_endpoint(subject: str):
+#     response = handler.send_response(subject)
+#     return {"response": response}
 
 
 @app.get("/reviews")
