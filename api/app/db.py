@@ -4,7 +4,7 @@ from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-import mysql.connector
+# import mysql.connector
 
 Base = declarative_base()
 

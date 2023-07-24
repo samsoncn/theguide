@@ -1,7 +1,5 @@
 import os
-
 from db import Session, Question, Answer, Review
-
 import prompts
 import json
 from langchain.llms import OpenAI
