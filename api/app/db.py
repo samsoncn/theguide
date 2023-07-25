@@ -3,8 +3,7 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
-# import mysql.connector
+import pymysql
 
 Base = declarative_base()
 
@@ -12,10 +11,10 @@ Base = declarative_base()
 class Question(Base):
     __tablename__ = 'questions'
     id = Column(Integer, primary_key=True)
-    subject = Column(String)
-    queryAsked = Column(String)
+    subject = Column(String(300))
+    queryAsked = Column(String(4000))
     answers = relationship('Answer', back_populates='question')
-    
+
     def to_json(self):
         return {
             'id': self.id,
@@ -29,7 +28,7 @@ class Answer(Base):
     id = Column(Integer, primary_key=True)
     question_id = Column(Integer, ForeignKey('questions.id'))
     question = relationship('Question', back_populates='answers')
-    
+
     def to_json(self):
         return {
             'id': self.id,
@@ -40,16 +39,34 @@ class Answer(Base):
 class Review(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
-    review = Column(String)
-    
+    review = Column(String(2000))
+
     def to_json(self):
         return {
             'id': self.id,
             'review': self.review
         }
-        
 
-engine = create_engine("sqlite:///questions.db")
+
+# engine = create_engine("sqlite:///questions.db")
+# Session = sessionmaker(bind=engine)
+
+
+host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com"
+user="2ciuZ6ve6UroqFK.root"
+password="VAwwwBHpQdLsk4D0"
+port=4000
+database="test"
+ssl={"ca": "./cacert.pem"}
+ssl_mode="VERIFY_IDENTITY"
+
+engine = create_engine(f'mysql://{user}:{password}@{host}:{port}/{database}', connect_args={
+    "ssl_mode": ssl_mode,
+    "ssl": ssl
+})
+
+# create tables if they don't exist
+Base.metadata.create_all(engine)
+
+# create session
 Session = sessionmaker(bind=engine)
-
-

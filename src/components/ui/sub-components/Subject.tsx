@@ -89,7 +89,7 @@ const subjects = [
 function Subject() {
   const [selectedSubject, setSelectedSubject] = useState(null);
 
-  const handleClick = (subject) => {
+  const handleClick = (subject: any) => {
     console.log(`Clicked subject ${subject}`);
     setSelectedSubject(subject);
     axios.get(`http://localhost:3000/api/app/conversation?id=${subject}`)

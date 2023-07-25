@@ -53,7 +53,7 @@ async def query_endpoint(interaction: Interaction):
     response = handler.send_response(interaction.query)
     return {"response": response}
 
-# @app.post("/api/app/conversation")
+# @app.post("/api/app/conversation/${subject}")
 # async def query_endpoint(subject: str):
 #     response = handler.send_response(subject)
 #     return {"response": response}
