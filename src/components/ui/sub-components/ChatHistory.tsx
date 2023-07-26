@@ -46,3 +46,39 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({
 };
 
 export default ChatHistory;
+
+// Testing
+// interface ChatHistoryProps {
+//   chatLogs: Record<string, ChatLog>;
+//   setCurrentChatId: (id: string) => void;
+//   selectedSubject: string;
+// }
+
+// const ChatHistory: React.FC<ChatHistoryProps> = ({
+//   chatLogs,
+//   setCurrentChatId,
+//   selectedSubject,
+// }) => {
+//   return (
+//     <>
+//       <div className="overflow-y-auto flex flex-col h-[75%]">
+//         {/* reversed chatlog */}
+//         {Object.values(chatLogs)
+//           .reverse()
+//           .map((chatLog) => (
+//             <div
+//               onClick={() => setCurrentChatId(chatLog.id)}
+//               key={chatLog.id}
+//               className="text-sm text-white h-fit flex items-center"
+//             >
+//               <p className="border-b-2 p-2">
+//                 Subject: {selectedSubject} Chat ID: {chatLog.id}
+//               </p>
+//             </div>
+//           ))}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ChatHistory;
