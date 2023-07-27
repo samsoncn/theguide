@@ -11,10 +11,14 @@ from store import create_store
 from dotenv import load_dotenv
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import uvicorn
+from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+# app = FastAPI()
+app = FastAPI(middleware=[
+    Middleware(CORSMiddleware, allow_origins=["*"])
+])
+# , allow_credentials=True,allow_methods=["*"],allow_headers=["*"]
 handler = OpenAIHandler(api_functions, functions, system_message)
 load_dotenv()
 
@@ -22,15 +26,13 @@ load_dotenv()
 
 # origins=["*"]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    Access_Control_Allow_Origin=['*'],
-)
-
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 @app.exception_handler(StarletteHTTPException)
