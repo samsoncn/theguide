@@ -100,7 +100,7 @@ const TestingChat: React.FC<ChatProps> = ({
             role: "bot",
             content: response.data.response,
           };
-          console.log(response.data.response);
+          // console.log(response.data.response);
           const newChatLog: ChatLog = {
             ...currentChatLog,
             messages: [...currentChatLog.messages, newMessage],
@@ -124,8 +124,6 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-  // A useEffect that sends the message when shouldSendMessage is set to true
-  //  Old
 
   useEffect(() => {
     if (shouldSendMessage) {

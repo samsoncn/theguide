@@ -53,31 +53,33 @@ class Review(Base):
 
 # engine = create_engine("sqlite:///questions.db")
 # Session = sessionmaker(bind=engine)
-load_dotenv(find_dotenv('../.env'))
 
-host = os.environ.get('HOST')
-# user = os.environ.get('USER')
-password = os.environ.get('PASSWORD')
-port = os.environ.get('PORT')
-database = os.environ.get('DATABASE')
-# print(user)
+# load_dotenv(find_dotenv('../.env'))
+
+# host = os.environ.get('HOST')
+# # user = os.environ.get('USER')
+# password = os.environ.get('PASSWORD')
+# port = os.environ.get('PORT')
+# database = os.environ.get('DATABASE')
 
 
-# host="gateway01.eu-central-1.prod.aws.tidbcloud.com"
-user="2SCvfBRHo8fkQY7.root"
-# password="s00hqD3eju9pDByn"
-# port=4000
-# database="test"
-ssl={"ca": "/etc/ssl/cert.pem"}
+
+host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com"
+user="2ciuZ6ve6UroqFK.root"
+password="VAwwwBHpQdLsk4D0"
+port=4000
+database="test"
+ssl={"ca": "./cacert.pem"}
 ssl_mode="VERIFY_IDENTITY"
+# ssl={"ca": "/etc/ssl/cert.pem"}
 
 engine = create_engine(f'mysql://{user}:{password}@{host}:{port}/{database}', connect_args={
     "ssl_mode": ssl_mode,
     "ssl": ssl
 })
 
-# create tables if they don't exist
+
 Base.metadata.create_all(engine)
 
-# create session
+
 Session = sessionmaker(bind=engine)
