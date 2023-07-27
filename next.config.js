@@ -57,6 +57,7 @@ const nextConfig = {
         // ],
 >>>>>>> 9c4598f (delete headers in next config)
       },
+<<<<<<< HEAD
 =======
       // {
       // source: "/api/app/:path*",
@@ -108,6 +109,25 @@ const nextConfig = {
       //     },
       //   ],
       // },
+=======
+      {
+        source: "/api/app/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type,Authorization",
+          },
+        ],
+      },
+>>>>>>> f783b73 (update source and headers in next config)
     ];
   },
 };
