@@ -20,7 +20,7 @@ load_dotenv()
 
 # origins = ['http://localhost:3000', 'https://theguidesai.vercel.app', 'theguides-h0f52zltc-wetheguide23-gmailcom.vercel.app', 'https://theguides-git-dev-wetheguide23-gmailcom.vercel.app', 'https://theguides-wetheguide23-gmailcom.vercel.app', 'theguides-git-samson-dev-wetheguide23-gmailcom.vercel.app']
 
-origins=["*"]
+# origins=["*"]
 
 app.add_middleware(
     CORSMiddleware,
