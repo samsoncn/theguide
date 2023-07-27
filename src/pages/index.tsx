@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 // import Chat from "@/components/ui/Chat";
-import Sidebar from "@/components/ui/Sidebar";
+// import Sidebar from "@/components/ui/Sidebar";
 import { Poppins } from "next/font/google";
 import WholeScreen from "@/components/ui/WholeScreen";
 
