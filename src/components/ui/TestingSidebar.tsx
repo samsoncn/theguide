@@ -51,12 +51,12 @@ const TestingSidebar: React.FC<SidebarProps> = ({
           isOpen ? "w-[20%]" : "w-0"
         } 'h-screen bg-[#282828] overflow-hidden'`}
       >
-        <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 underline text-slate-200">
+        <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 text-slate-200" style={{ textShadow: "3px 3px 6px #000000" }}>
           TheGuides
         </h1>
         <div className="mx-5 rounded-xl h-[75%]">
           <div
-            className="grid grid-cols-2 space-x-2 rounded-xl bg-[#ffffff] shadow-inner shadow-black p-2"
+            className="grid grid-cols-2 space-x-2 rounded-xl shadow-md shadow-black bg-[#ffffff]  p-2"
             x-data="app"
           >
             <div>
@@ -70,7 +70,8 @@ const TestingSidebar: React.FC<SidebarProps> = ({
               />
               <label
                 htmlFor="1"
-                className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:shadow-inner peer-checked:shadow-[#9f9f9f] peer-checked:bg-black peer-checked:font-bold peer-checked:text-gray-100"
+                className="block cursor-pointer select-none rounded-xl p-2 text-center text-slate-800
+                hover:bg-slate-300 hover:shadow-md hover:shadow-gray-400 peer-checked:shadow-md peer-checked:shadow-[#373737] peer-checked:bg-slate-800 peer-checked:font-bold peer-checked:text-gray-100 transition-all duration-200"
               >
                 Subject
               </label>
@@ -86,7 +87,8 @@ const TestingSidebar: React.FC<SidebarProps> = ({
               />
               <label
                 htmlFor="2"
-                className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:shadow-inner peer-checked:shadow-[#9f9f9f] peer-checked:bg-black peer-checked:font-bold peer-checked:text-gray-100"
+                className="block cursor-pointer select-none rounded-xl p-2 text-center text-slate-800
+                hover:bg-slate-300 hover:shadow-md hover:shadow-gray-400 peer-checked:shadow-md peer-checked:shadow-[#373737] peer-checked:bg-slate-800 peer-checked:font-bold peer-checked:text-gray-100 transition-all duration-200"
               >
                 History
               </label>
@@ -95,7 +97,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
           {/* New Chat Button */}
           <button
             onClick={onNewChat}
-            className="text-white flex my-2 border-2 rounded-lg p-2 justify-center items-center text-center w-full hover:shadow-lg hover:shadow-black"
+            className="text-white flex my-4 border-2 rounded-lg p-2 justify-center items-center text-center w-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
           >
             <BiSolidMessageSquareAdd className="mr-2" />
             New Chat
