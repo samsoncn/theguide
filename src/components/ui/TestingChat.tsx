@@ -5,7 +5,6 @@ import ResponseLoadingAnimation from "./sub-components/ResponseLoadingAnimation"
 import axios from "axios";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
-import Link from "next/link";
 interface Message {
   role: string;
   content: string;
@@ -90,17 +89,14 @@ const TestingChat: React.FC<ChatProps> = ({
     };
     // Send a POST request to the server
     try {
-      const baseUrl = process.env.NODE_ENV === "production"
-        ? "https://theguidesai.vercel.app"
-        : "http://localhost:3000";
+      const baseUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://theguidesai.vercel.app"
+          : "http://localhost:3000";
       let result = axios
-        .post(
-          `${baseUrl}/api/app/conversation`,
-          interaction,
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        )
+        .post(`${baseUrl}/api/app/conversation`, interaction, {
+          headers: { "Content-Type": "application/json" },
+        })
         .then((response) => {
           // Add the bot's response to the chat log
           const newMessage: Message = {
@@ -131,7 +127,6 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-
   useEffect(() => {
     if (shouldSendMessage) {
       // console.log(inputValue);
@@ -151,9 +146,9 @@ const TestingChat: React.FC<ChatProps> = ({
             {currentChatLog.messages.map((message, index) => (
               <div
                 key={index}
-                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${message.role === "bot" &&
-                  "bg-[#1e1e1e] text-slate-100 pr-10"
-                  } ${message.role === "user" && "bg-slate-800 pr-10"}`}
+                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${
+                  message.role === "bot" && "bg-[#1e1e1e] text-slate-100 pr-10"
+                } ${message.role === "user" && "bg-slate-800 pr-10"}`}
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}

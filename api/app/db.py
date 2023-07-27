@@ -54,24 +54,15 @@ class Review(Base):
 # engine = create_engine("sqlite:///questions.db")
 # Session = sessionmaker(bind=engine)
 
-# load_dotenv(find_dotenv('../.env'))
+load_dotenv()
 
-# host = os.environ.get('HOST')
-# # user = os.environ.get('USER')
-# password = os.environ.get('PASSWORD')
-# port = os.environ.get('PORT')
-# database = os.environ.get('DATABASE')
-
-
-
-host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com"
-user="2ciuZ6ve6UroqFK.root"
-password="VAwwwBHpQdLsk4D0"
+host = os.environ.get('HOST')
+password = os.environ.get('PASSWORD')
+user='24ZP9uEs5AowTp5.root'
 port=4000
 database="test"
 ssl={"ca": "./cacert.pem"}
 ssl_mode="VERIFY_IDENTITY"
-# ssl={"ca": "/etc/ssl/cert.pem"}
 
 engine = create_engine(f'mysql://{user}:{password}@{host}:{port}/{database}', connect_args={
     "ssl_mode": ssl_mode,
