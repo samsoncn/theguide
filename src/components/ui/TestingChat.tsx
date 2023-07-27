@@ -139,7 +139,7 @@ const TestingChat: React.FC<ChatProps> = ({
 
   return (
     <>
-      <div className="w-full md:w-[80%] bg-[#191919]">
+      <div className="w-full bg-[#191919]">
         <Login />
         <div className="h-[85%] overflow-y-auto mt-5">
           <div className="mt-50 overflow-auto flex flex-col justify-center items-center">
@@ -147,8 +147,8 @@ const TestingChat: React.FC<ChatProps> = ({
               <div
                 key={index}
                 className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${
-                  message.role === "bot" && "bg-[#1e1e1e] text-slate-100 pr-10"
-                } ${message.role === "user" && "bg-slate-800 pr-10"}`}
+                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                } ${message.role === "user" && "bg-[#1e1e1e] border border-green-700 pr-10"}`}
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
@@ -171,7 +171,7 @@ const TestingChat: React.FC<ChatProps> = ({
           </div>
         </div>
         <div className="h-[10%] z-[50] flex items-center bg-transparent border-transparent">
-          <div className="flex flex-col w-full items-center">
+          <div className="flex flex-col w-full items-center mb-4">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -190,7 +190,7 @@ const TestingChat: React.FC<ChatProps> = ({
             {/* <Link href="/api/python">
               <code className="font-mono font-bold">api/index.py</code>
             </Link> */}
-            <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
+            <p className="text-[#6d6d6d] w-[75%] font-light mt-3 text-sm text-center">
               theguides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
             </p>

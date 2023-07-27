@@ -70,11 +70,6 @@ So in terms of power, Lebesgue integration is the most powerful of the three bec
 Please note that the '{context}' in the template below refers to the data we receive from our vectorstore which provides us with additional information about the specific statistics topic or problem.
 """
 
-'''
-Uses {system_message} and {context} variables and uses student's question as {question} variable.
-Then gives template for response.
-'''
-
 qa_template = """
 
 {system_message}
