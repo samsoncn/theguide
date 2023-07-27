@@ -90,10 +90,12 @@ const TestingChat: React.FC<ChatProps> = ({
     };
     // Send a POST request to the server
     try {
+      const baseUrl = process.env.NODE_ENV === "production"
+        ? "https://theguidesai.vercel.app"
+        : "http://localhost:3000";
       let result = axios
         .post(
-          // `https://theguidesai.vercel.app/api/app/conversation`,
-          `http://localhost:3000/api/app/conversation`,
+          `${baseUrl}/api/app/conversation`,
           interaction,
           {
             headers: { "Content-Type": "application/json" },
