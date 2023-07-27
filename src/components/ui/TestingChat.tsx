@@ -89,9 +89,13 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       let result = axios
-        .post(`http://localhost:3000/api/app/conversation`, interaction, {
-          headers: { "Content-Type": "application/json" },
-        })
+        .post(
+          `https://theguidesai.vercel.app/api/app/conversation`,
+          interaction,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        )
         .then((response) => {
           // Add the bot's response to the chat log
           const newMessage: Message = {
