@@ -9,10 +9,10 @@ from prompts import system_message
 import os
 from store import create_store
 from dotenv import load_dotenv
-# from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware import Middleware
-from starlette.middleware.cors import CORSMiddleware
+# from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 # app = FastAPI(middleware=[

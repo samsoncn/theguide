@@ -86,10 +86,10 @@ const nextConfig = {
       {
         source: "/api/app/:path*",
         destination:
-          // process.env.NODE_ENV === "development"
-          // ? "http://127.0.0.1:8000/api/app/:path*"
-          "http://theguides-git-samson-dev-wetheguide23-gmailcom.vercel.app/api/app/:path*",
-        // : "/api/app/",
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/api/app/:path*"
+            : // "http://theguides-git-samson-dev-wetheguide23-gmailcom.vercel.app/api/app/:path*"
+              "/api/app/",
 
         // headers: [
         //   { key: "Access-Control-Allow-Credentials", value: "true" },
