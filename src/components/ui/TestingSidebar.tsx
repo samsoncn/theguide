@@ -40,18 +40,18 @@ const TestingSidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
+      <div
+        className={`${
+          isOpen ? "w-[80%]" : "w-0"
+        } lg:w-[30%] h-screen bg-[#2b2b2b] overflow-hidden lg:overflow-visible`}
+      >
       <button
         className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         <BsReverseLayoutSidebarInsetReverse />
       </button>
-      <div
-        className={`${
-          isOpen ? "w-[80%]" : "w-0"
-        } lg:w-[30%] h-screen bg-[#282828] overflow-hidden lg:overflow-visible`}
-      >
-        <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 text-slate-200" style={{ textShadow: "3px 3px 6px #000000" }}>
+        <h1 className="text-4xl font-extrabold text-center pt-5 pb-5 text-slate-200" style={{ textShadow: "3px 3px 6px #000000" }}>
           TheGuides
         </h1>
         <div className="mx-5 rounded-xl h-[75%]">
@@ -97,7 +97,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
           {/* New Chat Button */}
           <button
             onClick={onNewChat}
-            className="text-white flex my-4 border-2 rounded-lg p-2 justify-center items-center text-center w-full  shadow-md shadow-black hover:shadow-lg hover:shadow-black"
+            className="text-white flex my-4 border-2 rounded-lg p-2 justify-center items-center text-center w-full shadow-md shadow-black hover:shadow-xl hover:border-slate-300 hover:bg-slate-300 hover:text-black hover:shadow-black transition-al duration-100"
           >
             <BiSolidMessageSquareAdd className="mr-2" />
             New Chat
