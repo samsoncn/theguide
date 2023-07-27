@@ -5,6 +5,7 @@ const nextConfig = {
       {
         source: "/api/app/:path*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         destination:
           process.env.NODE_ENV === "development" // "production"
             ? "http://127.0.0.1:8000/api/app/:path*"
@@ -15,6 +16,12 @@ const nextConfig = {
         //   process.env.NODE_ENV === "development"
         //     ? "http://127.0.0.1:8000/api/app/:path*"
         //     : "/api/app/",
+=======
+        destination:
+          process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000/api/app/:path*"
+            : "/api/app/",
+>>>>>>> 3c40a92 (added expose_headers)
 
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
