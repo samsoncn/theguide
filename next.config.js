@@ -4,11 +4,32 @@ const nextConfig = {
     return [
       {
         source: "/api/app/:path*",
+<<<<<<< HEAD
         destination:
           process.env.NODE_ENV === "development" // "production"
             ? "http://127.0.0.1:8000/api/app/:path*"
             : "https://theguidesai.vercel.app/api/app/:path*",            
         // "/api/app/",
+=======
+        // destination:
+        //   process.env.NODE_ENV === "development"
+        //     ? "http://127.0.0.1:8000/api/app/:path*"
+        //     : "/api/app/",
+
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" }, // replace this your actual origin
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,DELETE,PATCH,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value:
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+          },
+        ],
+>>>>>>> 0ea5430 (updated next config)
       },
     ];
   },
