@@ -19,7 +19,8 @@ const nextConfig = {
 =======
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:8000/api/app/:path*"
+            ? // ? "http://127.0.0.1:8000/api/app/:path*"
+              "http://theguides-git-samson-dev-wetheguide23-gmailcom.vercel.app/api/app/:path*"
             : "/api/app/",
 >>>>>>> 3c40a92 (added expose_headers)
 
