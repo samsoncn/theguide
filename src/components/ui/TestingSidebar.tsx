@@ -111,7 +111,8 @@ const TestingSidebar: React.FC<SidebarProps> = ({
             />
           )}
         </div>
-        <Footer />
+        {/* Ignored footer in prototype */}
+        {/* <Footer /> */}
       </div>
     </>
   );

@@ -51,25 +51,27 @@ const TestingChat: React.FC<ChatProps> = ({
     event.preventDefault();
     // Log the input value
     // console.log(`Input value: ${inputValue}`);
-    const newMessage: Message = { role: "user", content: inputValue };
-    // console.log(`newMessage: ${newMessage}`); // Log the
-    const newChatLog: ChatLog = {
-      ...currentChatLog,
-      messages: [...currentChatLog.messages, newMessage],
-    };
+    if (inputValue !== "") {
+      const newMessage: Message = { role: "user", content: inputValue };
+      // console.log(`newMessage: ${newMessage}`); // Log the
+      const newChatLog: ChatLog = {
+        ...currentChatLog,
+        messages: [...currentChatLog.messages, newMessage],
+      };
 
-    // Update the chat logs state
-    setChatLogs({
-      ...chatLogs,
-      [currentChatId]: newChatLog,
-    });
+      // Update the chat logs state
+      setChatLogs({
+        ...chatLogs,
+        [currentChatId]: newChatLog,
+      });
 
-    // Set shouldSendMessage to true to trigger the useEffect above
-    setShouldSendMessage(true);
-    // issue: AI model is not reading the user input
-    // reason: because we reset the input value before sending it to the server (fixed)
+      // Set shouldSendMessage to true to trigger the useEffect above
+      setShouldSendMessage(true);
+      // issue: AI model is not reading the user input
+      // reason: because we reset the input value before sending it to the server (fixed)
 
-    // setInputValue("");
+      // setInputValue("");
+    }
   };
 
   // send a message to the server
@@ -90,7 +92,8 @@ const TestingChat: React.FC<ChatProps> = ({
     try {
       let result = axios
         .post(
-          `https://theguidesai.vercel.app/api/app/conversation`,
+          // `https://theguidesai.vercel.app/api/app/conversation`,
+          `http://localhost:3000/api/app/conversation`,
           interaction,
           {
             headers: { "Content-Type": "application/json" },
@@ -102,7 +105,7 @@ const TestingChat: React.FC<ChatProps> = ({
             role: "bot",
             content: response.data.response,
           };
-          console.log(response.data.response);
+          // console.log(response.data.response);
           const newChatLog: ChatLog = {
             ...currentChatLog,
             messages: [...currentChatLog.messages, newMessage],
@@ -126,8 +129,6 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-  // A useEffect that sends the message when shouldSendMessage is set to true
-  //  Old
 
   useEffect(() => {
     if (shouldSendMessage) {
@@ -143,33 +144,34 @@ const TestingChat: React.FC<ChatProps> = ({
     <>
       <div className="w-[80%] bg-[#191919]">
         <Login />
-        <div className="h-[85%] overflow-y-auto flex flex-col justify-center items-center mt-2">
-          {currentChatLog.messages.map((message, index) => (
-            <div
-              key={index}
-              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
-                message.role === "bot" &&
-                "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
-              }`}
-            >
-              <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
-                {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
-              </span>
-              <div className="" key={index}>
-                {message.content}
+        <div className="h-[85%] overflow-y-auto mt-5">
+          <div className="mt-50 overflow-auto flex flex-col justify-center items-center">
+            {currentChatLog.messages.map((message, index) => (
+              <div
+                key={index}
+                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${message.role === "bot" &&
+                  "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
+                  }`}
+              >
+                <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
+                  {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
+                </span>
+                <div className="" key={index}>
+                  {message.content}
+                </div>
               </div>
-            </div>
-          ))}
-          {isLoading && (
-            <div
-              key={currentChatLog.messages.length}
-              className="flex justify-start "
-            >
-              <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">
-                <ResponseLoadingAnimation />
+            ))}
+            {isLoading && (
+              <div
+                key={currentChatLog.messages.length}
+                className="flex justify-start "
+              >
+                <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">
+                  <ResponseLoadingAnimation />
+                </div>
               </div>
-            </div>
-          )}{" "}
+            )}{" "}
+          </div>
         </div>
         <div className="h-[10%] z-[50] flex items-center bg-transparent border-transparent">
           <div className="flex flex-col w-full items-center">
@@ -192,7 +194,7 @@ const TestingChat: React.FC<ChatProps> = ({
               <code className="font-mono font-bold">api/index.py</code>
             </Link> */}
             <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
-              TheGuides.ai Version 1.0. Our mission is to guide people to learn
+              theguides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
             </p>
           </div>
