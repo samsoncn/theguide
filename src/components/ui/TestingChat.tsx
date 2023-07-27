@@ -51,25 +51,27 @@ const TestingChat: React.FC<ChatProps> = ({
     event.preventDefault();
     // Log the input value
     // console.log(`Input value: ${inputValue}`);
-    const newMessage: Message = { role: "user", content: inputValue };
-    // console.log(`newMessage: ${newMessage}`); // Log the
-    const newChatLog: ChatLog = {
-      ...currentChatLog,
-      messages: [...currentChatLog.messages, newMessage],
-    };
+    if (inputValue !== "") {
+      const newMessage: Message = { role: "user", content: inputValue };
+      // console.log(`newMessage: ${newMessage}`); // Log the
+      const newChatLog: ChatLog = {
+        ...currentChatLog,
+        messages: [...currentChatLog.messages, newMessage],
+      };
 
-    // Update the chat logs state
-    setChatLogs({
-      ...chatLogs,
-      [currentChatId]: newChatLog,
-    });
+      // Update the chat logs state
+      setChatLogs({
+        ...chatLogs,
+        [currentChatId]: newChatLog,
+      });
 
-    // Set shouldSendMessage to true to trigger the useEffect above
-    setShouldSendMessage(true);
-    // issue: AI model is not reading the user input
-    // reason: because we reset the input value before sending it to the server (fixed)
+      // Set shouldSendMessage to true to trigger the useEffect above
+      setShouldSendMessage(true);
+      // issue: AI model is not reading the user input
+      // reason: because we reset the input value before sending it to the server (fixed)
 
-    // setInputValue("");
+      // setInputValue("");
+    }
   };
 
   // send a message to the server
@@ -143,10 +145,9 @@ const TestingChat: React.FC<ChatProps> = ({
           {currentChatLog.messages.map((message, index) => (
             <div
               key={index}
-              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
-                message.role === "bot" &&
+              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${message.role === "bot" &&
                 "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
-              }`}
+                }`}
             >
               <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                 {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
@@ -188,7 +189,7 @@ const TestingChat: React.FC<ChatProps> = ({
               <code className="font-mono font-bold">api/index.py</code>
             </Link> */}
             <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
-              TheGuides.ai Version 1.0. Our mission is to guide people to learn
+              theguides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
             </p>
           </div>

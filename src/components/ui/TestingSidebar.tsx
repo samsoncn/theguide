@@ -38,12 +38,12 @@ const TestingSidebar: React.FC<SidebarProps> = ({
   return (
     <>
         <button
-        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg-hidden"
+        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
         >
           <BsReverseLayoutSidebarInsetReverse/>
         </button>
-      <div className={`${isOpen ? 'w-[20%]' : 'w-0'} 'h-screen bg-[#282828] overflow-hidden'`}>
+      <div className={`${isOpen ? 'w-[300px]' : 'w-0'} 'h-screen bg-[#282828] overflow-hidden'`}>
           <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 underline text-slate-200">
             TheGuides
           </h1>
@@ -103,7 +103,8 @@ const TestingSidebar: React.FC<SidebarProps> = ({
             />
           )}
         </div>
-        <Footer />
+        {/* Ignored footer in prototype */}
+        {/* <Footer /> */}
       </div>
     </>
   );
