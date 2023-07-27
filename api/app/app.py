@@ -17,7 +17,7 @@ app = FastAPI()
 handler = OpenAIHandler(api_functions, functions, system_message)
 load_dotenv()
 
-origins = ['http://localhost:3000']
+origins = ['http://localhost:3000', 'https://theguidesai.vercel.app']
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,9 +43,9 @@ async def startup_event():
         create_store()
 
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    os.remove("questions.db")
+# @app.on_event("shutdown")
+# async def shutdown_event():
+#     os.remove("questions.db")
 
 
 @app.post("/api/app/conversation")
