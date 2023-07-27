@@ -41,14 +41,14 @@ const TestingSidebar: React.FC<SidebarProps> = ({
   return (
     <>
       <button
-        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg-hidden"
+        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         <BsReverseLayoutSidebarInsetReverse />
       </button>
       <div
         className={`${
-          isOpen ? "w-[20%]" : "w-0"
+          isOpen ? "w-[25%]" : "w-0"
         } 'h-screen bg-[#282828] overflow-hidden'`}
       >
         <h1 className="text-4xl font-extrabold text-center pt-10 pb-5 text-slate-200" style={{ textShadow: "3px 3px 6px #000000" }}>
