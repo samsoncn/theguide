@@ -139,7 +139,7 @@ const TestingChat: React.FC<ChatProps> = ({
 
   return (
     <>
-      <div className="w-full md:w-[80%] bg-[#191919]">
+      <div className="w-full bg-[#191919]">
         <Login />
         <div className="h-[85%] overflow-y-auto mt-5">
           <div className="mt-50 overflow-auto flex flex-col justify-center items-center">
