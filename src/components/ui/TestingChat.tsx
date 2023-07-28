@@ -35,7 +35,7 @@ const TestingChat: React.FC<ChatProps> = ({
   // State for loading state, to show or hide the loading spinner
   const [isLoading, setIsLoading] = useState(false);
   // State to determine when to send a message
-  const [shouldSendMessage, setShouldSendMessage] = useState(false);
+  // const [shouldSendMessage, setShouldSendMessage] = useState(false);
 
   // Get the current chat log from the array of chat logs
   const currentChatLog = chatLogs[currentChatId];
@@ -65,11 +65,14 @@ const TestingChat: React.FC<ChatProps> = ({
       });
 
       // Set shouldSendMessage to true to trigger the useEffect above
-      setShouldSendMessage(true);
+      // setShouldSendMessage(true);
       // issue: AI model is not reading the user input
       // reason: because we reset the input value before sending it to the server (fixed)
 
-      // setInputValue("");
+      // Call the sendMessage function directly with the input value
+      sendMessage(inputValue);
+      // Reset the input field value
+      setInputValue("");
     }
   };
 
@@ -128,15 +131,15 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (shouldSendMessage) {
-      // console.log(inputValue);
-      sendMessage(inputValue);
-      setShouldSendMessage(false);
-      // solution: reset input bar here
-      setInputValue("");
-    }
-  }, [shouldSendMessage, inputValue]);
+  // useEffect(() => {
+  //   if (shouldSendMessage) {
+  //     // console.log(inputValue);
+  //     sendMessage(inputValue);
+  //     setShouldSendMessage(false);
+  //     // solution: reset input bar here
+  //     setInputValue("");
+  //   }
+  // }, [shouldSendMessage, inputValue]);
 
   return (
     <>
@@ -147,9 +150,12 @@ const TestingChat: React.FC<ChatProps> = ({
             {currentChatLog.messages.map((message, index) => (
               <div
                 key={index}
-                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
-                  } ${message.role === "user" && "bg-[#1e1e1e] border border-green-700 pr-10"}`}
-
+                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${
+                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                } ${
+                  message.role === "user" &&
+                  "bg-[#1e1e1e] border border-green-700 pr-10"
+                }`}
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
