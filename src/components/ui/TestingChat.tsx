@@ -69,6 +69,9 @@ const TestingChat: React.FC<ChatProps> = ({
       // issue: AI model is not reading the user input
       // reason: because we reset the input value before sending it to the server (fixed)
 
+      // Call the sendMessage function directly with the input value
+      // sendMessage(inputValue);
+      // // Reset the input field value
       // setInputValue("");
     }
   };
@@ -91,8 +94,9 @@ const TestingChat: React.FC<ChatProps> = ({
     try {
       const baseUrl =
         process.env.NODE_ENV === "development"
-          ? "https://theguidesai.vercel.app"
-          : "http://localhost:3000";
+          ? "http://localhost:3000"
+          : "https://theguidesai.vercel.app";
+
       let result = axios
         .post(`${baseUrl}/api/app/conversation`, interaction, {
           headers: { "Content-Type": "application/json" },
@@ -109,7 +113,7 @@ const TestingChat: React.FC<ChatProps> = ({
             messages: [...currentChatLog.messages, newMessage],
           };
 
-
+          // Update the chat logs state
           setChatLogs({
             ...chatLogs,
             [currentChatId]: newChatLog,
@@ -119,7 +123,7 @@ const TestingChat: React.FC<ChatProps> = ({
         })
         .catch((error) => {
           setIsLoading(false);
-          console.log(error.response.data);
+          console.log(error);
         });
       console.log(result);
     } catch (error) {
@@ -128,7 +132,7 @@ const TestingChat: React.FC<ChatProps> = ({
   };
 
   useEffect(() => {
-    if (shouldSendMessage) {
+    if (shouldSendMessage && inputValue != "") {
       // console.log(inputValue);
       sendMessage(inputValue);
       setShouldSendMessage(false);
