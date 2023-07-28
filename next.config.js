@@ -36,7 +36,7 @@ const nextConfig = {
       {
         source: "/api/app/:path*",
         destination:
-          process.env.NODE_ENV === "developement"
+          process.env.NODE_ENV === "production"
             ? "https://theguidesai.vercel.app/api/app/:path*"
             : "http://127.0.0.1:8000/api/app/:path*",
         // : "/api/app/",
