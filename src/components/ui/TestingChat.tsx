@@ -90,9 +90,10 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       const baseUrl =
-        process.env.NODE_ENV === "production"
-          ? "https://theguidesai.vercel.app"
-          : "http://localhost:3000";
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://theguidesai.vercel.app";
+
       let result = axios
         .post(`${baseUrl}/api/app/conversation`, interaction, {
           headers: { "Content-Type": "application/json" },
@@ -119,7 +120,7 @@ const TestingChat: React.FC<ChatProps> = ({
         })
         .catch((error) => {
           setIsLoading(false);
-          console.log(error.response.data);
+          console.log(error);
         });
       console.log(result);
     } catch (error) {
