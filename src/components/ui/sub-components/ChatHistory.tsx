@@ -29,7 +29,7 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({
             <div
               onClick={() => setCurrentChatId(chatLog.id)}
               key={chatLog.id}
-              className="text-sm w-full text-slate-800 p-1 overflow-none flex items-center bg-slate-300 shadow-md shadow-slate-900 hover:text-white hover:bg-slate-800 hover:shadow-md hover:shadow-black rounded-lg my-1 transition-all transition-duration-100"
+              className="text-sm cursor-pointer w-full text-slate-800 p-1 overflow-none flex items-center bg-slate-300 shadow-md shadow-slate-900 hover:text-white hover:bg-slate-800 hover:shadow-md hover:shadow-black rounded-lg my-1 transition-all transition-duration-100"
             >
               <p className="w-full p-2">Chat ID: {chatLog.id}</p>
               {/* <h3>Conversation:</h3>
