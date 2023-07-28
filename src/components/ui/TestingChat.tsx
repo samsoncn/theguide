@@ -70,9 +70,9 @@ const TestingChat: React.FC<ChatProps> = ({
       // reason: because we reset the input value before sending it to the server (fixed)
 
       // Call the sendMessage function directly with the input value
-      // sendMessage(inputValue);
-      // // Reset the input field value
-      // setInputValue("");
+      sendMessage(inputValue);
+      // Reset the input field value
+      setInputValue("");
     }
   };
 
@@ -131,15 +131,15 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (shouldSendMessage && inputValue != "") {
-      // console.log(inputValue);
-      sendMessage(inputValue);
-      setShouldSendMessage(false);
-      // solution: reset input bar here
-      setInputValue("");
-    }
-  }, [shouldSendMessage, inputValue]);
+  // useEffect(() => {
+  //   if (shouldSendMessage && inputValue != "") {
+  //     // console.log(inputValue);
+  //     sendMessage(inputValue);
+  //     setShouldSendMessage(false);
+  //     // solution: reset input bar here
+  //     setInputValue("");
+  //   }
+  // }, [shouldSendMessage, inputValue]);
 
   return (
     <>
