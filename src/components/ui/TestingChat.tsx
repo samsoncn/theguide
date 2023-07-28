@@ -35,7 +35,7 @@ const TestingChat: React.FC<ChatProps> = ({
   // State for loading state, to show or hide the loading spinner
   const [isLoading, setIsLoading] = useState(false);
   // State to determine when to send a message
-  // const [shouldSendMessage, setShouldSendMessage] = useState(false);
+  const [shouldSendMessage, setShouldSendMessage] = useState(false);
 
   // Get the current chat log from the array of chat logs
   const currentChatLog = chatLogs[currentChatId];
@@ -65,14 +65,14 @@ const TestingChat: React.FC<ChatProps> = ({
       });
 
       // Set shouldSendMessage to true to trigger the useEffect above
-      // setShouldSendMessage(true);
+      setShouldSendMessage(true);
       // issue: AI model is not reading the user input
       // reason: because we reset the input value before sending it to the server (fixed)
 
       // Call the sendMessage function directly with the input value
-      sendMessage(inputValue);
-      // Reset the input field value
-      setInputValue("");
+      // sendMessage(inputValue);
+      // // Reset the input field value
+      // setInputValue("");
     }
   };
 
@@ -131,15 +131,15 @@ const TestingChat: React.FC<ChatProps> = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (shouldSendMessage) {
-  //     // console.log(inputValue);
-  //     sendMessage(inputValue);
-  //     setShouldSendMessage(false);
-  //     // solution: reset input bar here
-  //     setInputValue("");
-  //   }
-  // }, [shouldSendMessage, inputValue]);
+  useEffect(() => {
+    if (shouldSendMessage && inputValue != "") {
+      // console.log(inputValue);
+      sendMessage(inputValue);
+      setShouldSendMessage(false);
+      // solution: reset input bar here
+      setInputValue("");
+    }
+  }, [shouldSendMessage, inputValue]);
 
   return (
     <>
