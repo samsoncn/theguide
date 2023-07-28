@@ -90,7 +90,7 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       const baseUrl =
-        process.env.NODE_ENV === "production"
+        process.env.NODE_ENV === "development"
           ? "https://theguidesai.vercel.app"
           : "http://localhost:3000";
       let result = axios
@@ -101,7 +101,7 @@ const TestingChat: React.FC<ChatProps> = ({
           // Add the bot's response to the chat log
           const newMessage: Message = {
             role: "bot",
-            content: response.data.response,
+            content: JSON.stringify(response.data.response).replace(/\n/g, ""),
           };
           // console.log(response.data.response);
           const newChatLog: ChatLog = {
@@ -146,9 +146,8 @@ const TestingChat: React.FC<ChatProps> = ({
             {currentChatLog.messages.map((message, index) => (
               <div
                 key={index}
-                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${
-                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
-                } ${message.role === "user" && "bg-[#1e1e1e] border border-green-700 pr-10"}`}
+                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                  } ${message.role === "user" && "bg-[#1e1e1e] border border-green-700 pr-10"}`}
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
