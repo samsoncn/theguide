@@ -1,5 +1,5 @@
 # Replicate the project locally
-- **Step 1**: Clone the repo from the [repo](https://github.com/samsoncn/theguide)
+- **Step 1**: Clone the [repo](https://github.com/samsoncn/theguide)
 - **Step 2**: Add dev branch using `git branch dev` and then switch to dev branch using `git checkout dev`
 - **Step 3**: Pull the latest information from dev branch using `git pull origin dev`
 - **Step 4**: install dependencies using `npm i` 
