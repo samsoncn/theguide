@@ -103,18 +103,13 @@ const TestingChat: React.FC<ChatProps> = ({
             role: "bot",
             content: response.data.response,
           };
-          // console.log("1" + response.data.response);
-          // console.log(
-          //   "newMessage.content :::" +
-          //     JSON.stringify(newMessage.content, null, 2).replace(/\\n/g, "\n")
-          // );
 
           const newChatLog: ChatLog = {
             ...currentChatLog,
             messages: [...currentChatLog.messages, newMessage],
           };
 
-          // Update the chat logs state
+
           setChatLogs({
             ...chatLogs,
             [currentChatId]: newChatLog,
