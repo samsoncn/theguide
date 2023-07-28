@@ -11,13 +11,12 @@ from store import create_store
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import uvicorn
 
 app = FastAPI()
 handler = OpenAIHandler(api_functions, functions, system_message)
 load_dotenv()
 
-origins = ['http://localhost:3000', 'https://theguidesai.vercel.app', 'theguides-h0f52zltc-wetheguide23-gmailcom.vercel.app', 'https://theguides-git-dev-wetheguide23-gmailcom.vercel.app', 'https://theguides-wetheguide23-gmailcom.vercel.app']
+origins = ['http://localhost:3000', 'https://theguidesai.vercel.app']
 
 app.add_middleware(
     CORSMiddleware,
