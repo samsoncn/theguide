@@ -30,3 +30,7 @@ uvicorn==0.22.0
 
 # openai is an artificial intelligence research laboratory consisting of the for-profit corporation OpenAI LP and its parent company, the non-profit OpenAI Inc.
 openai
+
+mysqlclient
+
+pymysql
