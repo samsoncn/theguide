@@ -90,7 +90,7 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       const baseUrl =
-        process.env.NODE_ENV === "production"
+        process.env.NODE_ENV === "development"
           ? "https://theguidesai.vercel.app"
           : "http://localhost:3000";
       let result = axios
