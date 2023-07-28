@@ -89,18 +89,14 @@ const TestingChat: React.FC<ChatProps> = ({
     };
     // Send a POST request to the server
     try {
-      // const baseUrl =
-      //   process.env.NODE_ENV === "development"
-      //     ? "https://theguidesai.vercel.app"
-      //     : "http://localhost:3000";
+      const baseUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://theguidesai.vercel.app"
+          : "http://localhost:3000";
       let result = axios
-        .post(
-          `https://theguidesai.vercel.app/api/app/conversation`,
-          interaction,
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        )
+        .post(`${baseUrl}/api/app/conversation`, interaction, {
+          headers: { "Content-Type": "application/json" },
+        })
         .then((response) => {
           // Add the bot's response to the chat log
           const newMessage: Message = {
@@ -128,7 +124,7 @@ const TestingChat: React.FC<ChatProps> = ({
         })
         .catch((error) => {
           setIsLoading(false);
-          console.log(error.response.data);
+          console.log(error);
         });
       console.log(result);
     } catch (error) {
