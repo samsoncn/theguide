@@ -90,7 +90,7 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       const baseUrl =
-        process.env.NODE_ENV === "development"
+        process.env.NODE_ENV === "production"
           ? "https://theguidesai.vercel.app"
           : "http://localhost:3000";
       let result = axios
@@ -101,13 +101,8 @@ const TestingChat: React.FC<ChatProps> = ({
           // Add the bot's response to the chat log
           const newMessage: Message = {
             role: "bot",
-            content: JSON.stringify(response.data.response).replace(/\n/g, ""),
+            content: response.data.response,
           };
-          // console.log("1" + response.data.response);
-          // console.log(
-          //   "newMessage.content :::" +
-          //     JSON.stringify(newMessage.content, null, 2).replace(/\\n/g, "\n")
-          // );
 
           const newChatLog: ChatLog = {
             ...currentChatLog,
