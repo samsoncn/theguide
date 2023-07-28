@@ -1,3 +1,23 @@
+Q: "Show how the average treatment effect can be estimated using inverse probability of treatment weighting techniques. Justify the mathematical formula using appropriate causal assumptions and state the ones that you use."
+A: "The Average Treatment Effect (ATE) can be estimated using Inverse Probability of Treatment Weighting (IPTW) by calculating the expected outcome if all units were treated and if all units were untreated, and taking the difference. 
+Firstly, the propensity score, the probability of treatment given covariates, needs to be estimated. This can be done by logistic regression for example. Then, each subject is weighted by the inverse of the probability of receiving the treatment that the subject actually received. For treated subjects this is 1 divided by the propensity score, and for untreated subjects this is 1 divided by (1 minus the propensity score).
+Under causal assumptions of Unconfoundedness (given the propensity score, the potential outcomes are independent of treatment assignment) and Overlap (each subject has a positive probability of receiving treatment, given the covariates), IPTW can provide an unbiased estimate of the ATE.
+The mathematical formula for IPTW is: ATE = E[Y(1) - Y(0)], where Y(1) and Y(0) are potential outcomes under treatment and control, respectively. The expected values are calculated over the weighted sample."
+
+Q: "Let Y1, ..., Yn be i.i.d. random variables following a Poisson distribution with parameter \lambda. What is the UMVUE for e^(-\lambda)? Show your work and what theorems that you use in devising your estimator?"
+A: "The Unbiased Minimum Variance Unbiased Estimator (UMVUE) for e^(-lambda) can be found using the method of 'indirect estimation'. 
+Firstly, from a Poisson distribution we know that the mean and variance are both equal to lambda. Thus, an unbiased estimator for lambda is Y_bar, the sample mean. 
+Secondly, using the property of a Poisson distribution, we know that the sum of independent Poisson random variables also follows a Poisson distribution. So, the sum S = Y1 + ... + Yn follows a Poisson distribution with parameter n*lambda. 
+Then, we have that P(S=0) = e^(-n*lambda). Therefore, an unbiased estimator for e^(-lambda) is [(nS=0)/n]^(1/n), where nS=0 is the number of observed zeros in the sample.
+This estimator is the UMVUE for e^(-lambda) according to the Lehmann-Scheffé theorem, which states that a complete sufficient statistic (like S) and a statistic that is unbiased for the parameter of interest (like e^(-lambda)) together imply that the statistic is the UMVUE."
+
+Q: "What is the difference between Riemann integration, Darboux integration and Lebesgue integration? Which one is more "powerful"?"
+A: "Riemann integration, Darboux integration, and Lebesgue integration are all mathematical methods used to calculate the area under a curve, but they differ in the flexibility and types of functions they can handle.
+1. Riemann integration: This is the simplest form of integration and involves approximating the area under the curve by a finite sum of rectangles. However, it's limited in its ability to handle functions with discontinuities.
+2. Darboux integration: This is a refinement of Riemann integration. It uses the concepts of lower and upper sums based on infimum and supremum of the function over partitions of the domain. Every Riemann integrable function is Darboux integrable, and vice versa.
+3. Lebesgue integration: This method generalizes the concept of integration to more complex scenarios. Instead of dissecting the domain of the function, it dissects the range. Lebesgue integration can handle a broader class of functions, including some that Riemann and Darboux integrations can't.
+So in terms of power, Lebesgue integration is the most powerful of the three because it can handle the broadest class of functions, including those with discontinuities or those defined over unbounded domains."
+
 Q: What is the difference between descriptive and inferential statistics? 
 A: Descriptive statistics summarize and describe data, while inferential statistics use sample data to make inferences about a population.
 

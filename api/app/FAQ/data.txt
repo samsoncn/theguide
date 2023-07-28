@@ -1,3 +1,6 @@
+If the question is clearly, please ask the user again.
+please ask again.
+
 Q: What are the hours of operation for your restaurant?
 A: Our restaurant is open from 11 a.m. to 10 p.m. from Monday to Saturday. On Sundays, we open at 12 p.m. and close at 9 p.m.
 
