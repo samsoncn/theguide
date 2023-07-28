@@ -103,7 +103,12 @@ const TestingChat: React.FC<ChatProps> = ({
             role: "bot",
             content: JSON.stringify(response.data.response).replace(/\n/g, ""),
           };
-          // console.log(response.data.response);
+          // console.log("1" + response.data.response);
+          // console.log(
+          //   "newMessage.content :::" +
+          //     JSON.stringify(newMessage.content, null, 2).replace(/\\n/g, "\n")
+          // );
+
           const newChatLog: ChatLog = {
             ...currentChatLog,
             messages: [...currentChatLog.messages, newMessage],
@@ -148,6 +153,7 @@ const TestingChat: React.FC<ChatProps> = ({
                 key={index}
                 className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
                   } ${message.role === "user" && "bg-[#1e1e1e] border border-green-700 pr-10"}`}
+
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
