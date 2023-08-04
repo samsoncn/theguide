@@ -93,7 +93,7 @@ const TestingChat: React.FC<ChatProps> = ({
     // Send a POST request to the server
     try {
       const baseUrl =
-        process.env.NODE_ENV === "development"
+        process.env.NODE_ENV === "development" //"production"
           ? "http://localhost:3000"
           : "https://theguidesai.vercel.app";
 
