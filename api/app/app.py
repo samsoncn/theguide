@@ -46,16 +46,19 @@ async def startup_event():
 # async def shutdown_event():
 #     os.remove("questions.db")
 
-
-@app.post("/api/app/conversation")
-async def query_endpoint(interaction: Interaction):
-    response = handler.send_response(interaction.query)
-    return {"response": response}
-
-# @app.post("/api/app/conversation/${subject}")
-# async def query_endpoint(subject: str):
-#     response = handler.send_response(subject)
+# user input to prompt to langchain-openai
+# @app.post("/api/app/conversation")
+# async def query_endpoint(interaction: Interaction):
+#     response = handler.send_response(interaction.query)
 #     return {"response": response}
+
+# fetching subject data
+@app.post("/api/app/conversation/{subject}")
+# async def query_endpoint(subject: str, interaction: Interaction):
+async def query_endpoint(subject: str):
+    # query = f"Subject: {subject}\n\nQuestion: {interaction.query}"
+    response = handler.send_response(subject)
+    return {"response": response}
 
 
 @app.get("/reviews")
