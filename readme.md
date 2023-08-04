@@ -4,7 +4,6 @@
 - **Step 3**: Pull the latest information from dev branch using `git pull origin dev`
 - **Step 4**: install dependencies using `npm i` 
 - **Step 5**: install python dependencies using `pip install -r ./requirements.txt` saved inside `/api` directory 
-
 - **Step 6**: run the program using `npm run dev` in the root folder - runs both frontend and server 
 - **Step 7**: go to `localhost:3000` to view the website 
 
