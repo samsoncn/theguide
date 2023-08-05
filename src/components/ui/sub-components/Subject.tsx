@@ -32,6 +32,7 @@ const SubjectComponent: React.FC<SubjectProps> = ({ setSelectedSubject }) => {
       });
   };
 
+
   return (
     <>
       <div className="overflow-y-auto flex flex-col h-[90%] bg-slate-500 rounded-2xl px-4 py-4 shadow-md shadow-black">
