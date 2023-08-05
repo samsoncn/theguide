@@ -11,12 +11,20 @@ from store import create_store
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.middleware import Middleware
+# from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+# app = FastAPI(middleware=[
+#     Middleware(CORSMiddleware, allow_origins=["*"])
+# ])
+# , allow_credentials=True,allow_methods=["*"],allow_headers=["*"]
 handler = OpenAIHandler(api_functions, functions, system_message)
 load_dotenv()
 
-origins = ['http://localhost:3000', 'https://theguidesai.vercel.app']
+origins = ['http://localhost:3000', 'https://theguidesai.vercel.app', 'theguides-h0f52zltc-wetheguide23-gmailcom.vercel.app', 'https://theguides-git-dev-wetheguide23-gmailcom.vercel.app', 'https://theguides-wetheguide23-gmailcom.vercel.app', 'theguides-git-samson-dev-wetheguide23-gmailcom.vercel.app']
+
+# origins=["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,8 +32,8 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
-
 
 
 @app.exception_handler(StarletteHTTPException)
