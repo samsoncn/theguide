@@ -3,7 +3,6 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-import pymysql
 import os
 from dotenv import find_dotenv, load_dotenv
 
