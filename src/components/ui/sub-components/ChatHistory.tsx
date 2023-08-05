@@ -68,7 +68,12 @@ interface ChatHistoryProps {
   selectedSubject: null | string;
 }
 
-const ChatHistory: React.FC<ChatHistoryProps> = ({ chatLogs, setChatLogs, setCurrentChatId, selectedSubject }) => {
+const ChatHistory: React.FC<ChatHistoryProps> = ({
+  chatLogs,
+  setChatLogs,
+  setCurrentChatId,
+  selectedSubject,
+}) => {
   // const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   console.log(`ChatHistory: ${selectedSubject}`);
   useEffect(() => {
@@ -82,7 +87,9 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ chatLogs, setChatLogs, setCur
       });
   }, [selectedSubject]);
 
-  {console.log('Chat logs:', chatLogs)} 
+  {
+    console.log("Chat logs:", chatLogs);
+  }
 
   return (
     <>
@@ -98,7 +105,7 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ chatLogs, setChatLogs, setCur
               <p className="w-full p-2">Chat ID: {chatLog.id}</p>
             </div>
           ))} */}
-          {Object.values(chatLogs)
+        {Object.values(chatLogs)
           .reverse()
           .map((chatLog) => (
             <div
@@ -106,7 +113,9 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({ chatLogs, setChatLogs, setCur
               key={chatLog.id}
               className="text-sm cursor-pointer w-full text-slate-800 p-1 overflow-none flex items-center bg-slate-300 shadow-md shadow-slate-900 hover:text-white hover:bg-slate-800 hover:shadow-md hover:shadow-black rounded-lg my-1 transition-all transition-duration-100"
             >
-              <p className="w-full p-2">Subject: {selectedSubject}Chat ID: {chatLog.id}</p>
+              <p className="w-full p-2">
+                Subject: {selectedSubject} Chat ID: {chatLog.id.substring(0, 8)}
+              </p>
             </div>
           ))}
       </div>
