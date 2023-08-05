@@ -98,9 +98,9 @@ const TestingChat: React.FC<ChatProps> = ({
         process.env.NODE_ENV === "development" //"production"
           ? "http://localhost:3000"
           : "https://theguidesai.vercel.app";
-
+      
       let result = axios
-        .post(`${baseUrl}/api/app/conversation`, interaction, {
+        .post(`${baseUrl}/api/app/conversation/`, interaction, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
@@ -161,7 +161,7 @@ const TestingChat: React.FC<ChatProps> = ({
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
                 </span>
                 <div className="" key={index}>
-                  <ReactMarkdown>
+                  <ReactMarkdown linkTarget="_blank">
                     {message.content}
                   </ReactMarkdown>
                 </div>
