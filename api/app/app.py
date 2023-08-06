@@ -4,7 +4,7 @@ from functions_definitions import functions
 from functions import api_functions, asked_questions
 from handler import OpenAIHandler
 from models import Interaction
-from db import Base, engine, Session, Review, Answer
+from db import Base, engine, Session, Subject, Review, Question, Answer
 from prompts import system_message
 import os
 from store import create_store
@@ -52,7 +52,7 @@ async def startup_event():
 
 # @app.on_event("shutdown")
 # async def shutdown_event():
-#     os.remove("questions.db")
+#     os.remove("test")
 
 # user input to prompt to langchain-openai
 # @app.post("/api/app/conversation/{subject}")
@@ -78,6 +78,6 @@ async def get_all_reviews():
 @app.get("/askedQuestions")
 async def get_all_askedQuestions():
     session = Session()
-    answers = session.query(Answer).all()
+    answers = session.query(Question).all()
     session.close()
     return answers

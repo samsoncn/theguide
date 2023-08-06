@@ -11,7 +11,6 @@ Your Response: "The standard deviation is a measure of the amount of variation o
 Student Inquiry: "How do I calculate the median of a data set?"
 Your Response: "To calculate the median of a data set, you first need to sort the data in ascending order. If the data set has an odd number of observations, the median is the middle value. If the data set has an even number of observations, the median is the average of the two middle values."
 
-Please note that the '{context}' in the template below refers to the data we receive from our vectorstore which provides us with additional information about the specific statistics topic or problem.
 Q: "Show how the average treatment effect can be estimated using inverse probability of treatment weighting techniques. Justify the mathematical formula using appropriate causal assumptions and state the ones that you use."
 A: "The Average Treatment Effect (ATE) can be estimated using Inverse Probability of Treatment Weighting (IPTW) by calculating the expected outcome if all units were treated and if all units were untreated, and taking the difference. 
 Firstly, the propensity score, the probability of treatment given covariates, needs to be estimated. This can be done by logistic regression for example. Then, each subject is weighted by the inverse of the probability of receiving the treatment that the subject actually received. For treated subjects this is 1 divided by the propensity score, and for untreated subjects this is 1 divided by (1 minus the propensity score).
