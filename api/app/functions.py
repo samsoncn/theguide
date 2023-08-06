@@ -29,6 +29,26 @@ from store import get_vectorstore
 #         session.close()
 #         return "Subject not found"
 
+# def asked_questions():
+#     session = Session()
+    
+#     subjects = {
+#         "Maths": "Mathematics information",
+#         "English": "English information",
+#         "Statistics": "Statistics information",
+#         "Physics": "Physics information",
+#     }
+    
+#     for subject, queryAsked in subjects.items():
+#         question = Question(subject=subject, queryAsked=queryAsked) 
+#         session.add(question)
+        
+#     session.commit()
+#     session.close()
+
+# def asked_questions(subject_name: str, question_text: str, answer_text: str):
+
+
 def get_subject_info(subject_name: str):
     session = Session()
     subject = session.query(Subject).filter(Subject.name == subject_name).first()
@@ -84,29 +104,12 @@ api_functions = {
 }
 
 
-# def asked_questions():
-#     session = Session()
-    
-#     subjects = {
-#         "Maths": "Mathematics information",
-#         "English": "English information",
-#         "Statistics": "Statistics information",
-#         "Physics": "Physics information",
-#     }
-    
-#     for subject, queryAsked in subjects.items():
-#         question = Question(subject=subject, queryAsked=queryAsked) 
-#         session.add(question)
-        
-#     session.commit()
-#     session.close()
-
-# def asked_questions(subject_name: str, question_text: str, answer_text: str):
 def asked_questions():
     session = Session()
     
     subjects = {
         # subject_name: [question_text, answer_text],
+        "Mathematics": "Mathematics information",
         "English": "English information",
         "Statistics": "Statistics information",
         "Physics": "Physics information",
