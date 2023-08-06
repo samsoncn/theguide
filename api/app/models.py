@@ -11,7 +11,6 @@ class Conversation(BaseModel):
     
 class Interaction(BaseModel):
     conversation: Conversation
-    # subject: str
     query: str
     
 
