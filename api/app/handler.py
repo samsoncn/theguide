@@ -2,7 +2,6 @@ import json
 import os
 import openai
 from dotenv import find_dotenv, load_dotenv
-# from app import subject
 
 class OpenAIHandler:
     
@@ -24,8 +23,8 @@ class OpenAIHandler:
         self.model = model
         self.system_message = system_message
 
-    # def send_message(self, subject, query):
-    def send_message(self, query):
+    def send_message(self, subject, query):
+    # def send_message(self, query):
         response = openai.ChatCompletion.create(
             model=self.model,
             messages=[
@@ -33,10 +32,10 @@ class OpenAIHandler:
                     "role": "system",
                     "content": self.system_message,
                 },
-                # {
-                #     "role": "assistant",
-                #     "content": "You an expert educator in: " + subject,
-                # },
+                {
+                    "role": "assistant",
+                    "content": "You an expert educator in: " + subject,
+                },
                 {
                     "role": "user",
                     "content": query
@@ -63,10 +62,10 @@ class OpenAIHandler:
                 print(f"Function {function_name} not found.")
         return None, None
 
-    # def send_response(self, subject, query):
-    def send_response(self, query):
-        # message = self.send_message(subject, query)
-        message = self.send_message(query)
+    def send_response(self, subject, query):
+        message = self.send_message(subject, query)
+    # def send_response(self, query):
+    #     message = self.send_message(query)
         function_name, result = self.process_function_call(message)
 
         if function_name and result:
@@ -78,10 +77,10 @@ class OpenAIHandler:
                         "role": "system",
                         "content": self.system_message,
                     },
-                    # {
-                    #     "role": "assistant",
-                    #     "content": "You an expert educator in: " + subject,
-                    # },
+                    {
+                        "role": "assistant",
+                        "content": "You an expert educator in: " + subject,
+                    },
                     {
                         "role": "user",
                         "content": query,

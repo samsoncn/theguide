@@ -9,6 +9,8 @@ interface Subject {
 const subjects: Subject[] = [
   { id: "1", name: "English Language" },
   { id: "2", name: "Statistics" },
+  { id: "3", name: "Physics" },
+  { id: "4", name: "Mathematics" },
 ];
 
 interface SubjectProps {
