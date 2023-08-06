@@ -3,8 +3,8 @@ import { FaUserGraduate } from "react-icons/fa";
 import { BsRobot } from "react-icons/bs";
 import ResponseLoadingAnimation from "./sub-components/ResponseLoadingAnimation";
 import axios from "axios";
-import ReactMarkdown from 'react-markdown'
-import ReactDom from 'react-dom'
+import ReactMarkdown from "react-markdown";
+import ReactDom from "react-dom";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
 interface Message {
@@ -98,9 +98,9 @@ const TestingChat: React.FC<ChatProps> = ({
         process.env.NODE_ENV === "development" //"production"
           ? "http://localhost:3000"
           : "https://theguidesai.vercel.app";
-      
+
       let result = axios
-        .post(`${baseUrl}/api/app/conversation/`, interaction, {
+        .post(`/api/app/conversation`, interaction, {
           headers: { "Content-Type": "application/json" },
         })
         .then((response) => {
@@ -155,7 +155,7 @@ const TestingChat: React.FC<ChatProps> = ({
                 className={`text-base text-white flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar space-x-2 ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
                   } ${message.role === "user" &&
                   "bg-[#1e1e1e] border border-green-700 pr-10"
-                  }`}
+                }`}
               >
                 <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
                   {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
