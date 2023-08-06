@@ -145,17 +145,15 @@ const TestingChat: React.FC<ChatProps> = ({
 
   return (
     <>
-      <div className="w-full bg-[#191919]">
+      <div className="w-full mb-4 bg-[#191919]">
         <Login />
         <div className="h-[85%] overflow-y-auto mt-5">
           <div className="mt-50 overflow-auto flex flex-col justify-center items-center">
             {currentChatLog.messages.map((message, index) => (
               <div
                 key={index}
-                className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar ${
-                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
-                } ${
-                  message.role === "user" &&
+                className={`text-base text-white flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar space-x-2 ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                  } ${message.role === "user" &&
                   "bg-[#1e1e1e] border border-green-700 pr-10"
                 }`}
               >
@@ -174,7 +172,7 @@ const TestingChat: React.FC<ChatProps> = ({
                 key={currentChatLog.messages.length}
                 className="flex justify-start "
               >
-                <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">
+                <div className="bg-gray-800 rounded-lg p-4 text-white">
                   <ResponseLoadingAnimation />
                 </div>
               </div>
@@ -198,9 +196,6 @@ const TestingChat: React.FC<ChatProps> = ({
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
             </form>
-            {/* <Link href="/api/python">
-              <code className="font-mono font-bold">api/index.py</code>
-            </Link> */}
             <p className="text-[#6d6d6d] w-[75%] font-light mt-3 text-sm text-center">
               theguides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!

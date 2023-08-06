@@ -178,7 +178,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({ onNewChat, chatLogs, setChatLo
       <div
         className={`${
           isOpen ? "w-[80%]" : "w-0"
-        } lg:w-[30%] h-screen bg-[#2b2b2b] overflow-hidden lg:overflow-visible`}
+        } lg:w-[30%] h-screen bg-[#2b2b2b] overflow-hidden lg:overflow-auto`}
       >
         <button
         className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"

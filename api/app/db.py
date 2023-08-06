@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class Question(Base):
     __tablename__ = 'questions'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     subject = Column(String(300))
     queryAsked = Column(String(4000))
     answers = relationship('Answer', back_populates='question')
@@ -27,7 +27,7 @@ class Question(Base):
 
 class Answer(Base):
     __tablename__ = 'answers'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     question_id = Column(Integer, ForeignKey('questions.id'))
     question = relationship('Question', back_populates='answers')
 
