@@ -23,7 +23,7 @@
 - explain 3 laws of motion with suitable examples
 
 ## With newer (server-side) version:
-- Topic: `Statistics`
+- Subject: `Statistics`
 - What tasks can you perform?
 - What is hypothesis testing?
 - How do I calculate the median of a data set? (from `statistics.txt`)
