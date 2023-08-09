@@ -13,6 +13,7 @@ interface Message {
 interface ChatLog {
   id: string;
   messages: Message[];
+  subject?: string;
 }
 // interface Interaction {
 //   conversation: Conversation;
