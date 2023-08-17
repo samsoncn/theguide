@@ -145,14 +145,10 @@ interface SidebarProps {
   setCurrentChatId: (id: string) => void;
   // selectedSubject: null | string;
   // setSelectedSubject: (subject: string | null) => void;
+
 }
 
-const TestingSidebar: React.FC<SidebarProps> = ({
-  onNewChat,
-  chatLogs,
-  setChatLogs,
-  setCurrentChatId,
-}) => {
+const TestingSidebar: React.FC<SidebarProps> = ({ onNewChat, chatLogs, setChatLogs, setCurrentChatId }) => {
   // , selectedSubject, setSelectedSubject
   const [selectedOption, setSelectedOption] = useState("1");
   const [isOpen, setIsOpen] = useState(false);
@@ -167,8 +163,7 @@ const TestingSidebar: React.FC<SidebarProps> = ({
   useEffect(() => {
     if (selectedSubject) {
       console.log(`TestingSidebar: ${selectedSubject}`);
-      axios
-        .post(`http://localhost:3000/api/app/conversation/${selectedSubject}`)
+      axios.post(`http://localhost:3000/api/app/conversation/${selectedSubject}`)
         .then((response) => {
           setChatLogs(response.data);
         })
@@ -186,15 +181,12 @@ const TestingSidebar: React.FC<SidebarProps> = ({
         } lg:w-[30%] h-screen bg-[#2b2b2b] overflow-hidden lg:overflow-auto`}
       >
         <button
-          className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <BsReverseLayoutSidebarInsetReverse />
-        </button>
-        <h1
-          className="text-4xl font-extrabold text-center pt-5 pb-5 text-slate-200"
-          style={{ textShadow: "3px 3px 6px #000000" }}
-        >
+        className="absolute w-10 h-10 text-2xl m-2 text-slate-200 lg:hidden"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <BsReverseLayoutSidebarInsetReverse />
+      </button>
+        <h1 className="text-4xl font-extrabold text-center pt-5 pb-5 text-slate-200" style={{ textShadow: "3px 3px 6px #000000" }}>
           TheGuides
         </h1>
         <div className="mx-5 rounded-xl h-[75%]">
@@ -246,17 +238,15 @@ const TestingSidebar: React.FC<SidebarProps> = ({
             New Chat
           </button>
           {/* Subject */}
-          {selectedOption === "1" && (
-            <Subject setSelectedSubject={setSelectedSubject} />
-          )}
-          {selectedOption === "2" && (
-            <ChatHistory
-              chatLogs={chatLogs}
-              setChatLogs={setChatLogs}
-              setCurrentChatId={setCurrentChatId}
-              selectedSubject={selectedSubject}
-            />
-          )}
+        {selectedOption === "1" && <Subject setSelectedSubject={setSelectedSubject} />}
+        {selectedOption === "2" && (
+          <ChatHistory
+            chatLogs={chatLogs}
+            setChatLogs={setChatLogs}
+            setCurrentChatId={setCurrentChatId}
+            selectedSubject={selectedSubject}
+          />
+        )}
         </div>
       </div>
     </>

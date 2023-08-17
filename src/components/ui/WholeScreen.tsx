@@ -13,7 +13,7 @@ interface Message {
 interface ChatLog {
   id: string;
   messages: Message[];
-  subject?: string;
+  subject: string;
 }
 // interface Interaction {
 //   conversation: Conversation;
@@ -31,7 +31,7 @@ const WholeScreen = () => {
 
   // State variables for chat logs and current chat ID
   const [chatLogs, setChatLogs] = useState<Record<string, ChatLog>>({
-    [initialChatId]: { id: initialChatId, messages: [] },
+    [initialChatId]: { id: initialChatId, messages: [], subject: "" }, // Adjusted this line to include a default subject
   });
   const [currentChatId, setCurrentChatId] = useState(initialChatId);
 
@@ -40,8 +40,8 @@ const WholeScreen = () => {
     // Generate a new chat ID
     const newChatId = uuidv4();
 
-    // Create a new chat log with an empty log array
-    const newChatLog: ChatLog = { id: newChatId, messages: [] };
+    // Create a new chat log with an empty log array and a default subject
+    const newChatLog: ChatLog = { id: newChatId, messages: [], subject: "" }; // Adjusted this line to include a default subject
 
     // Update the chat logs state by adding the new chat log
     setChatLogs({
@@ -65,6 +65,7 @@ const WholeScreen = () => {
         onNewChat={handleNewChat}
         chatLogs={chatLogs}
         setCurrentChatId={setCurrentChatId}
+        setChatLogs={setChatLogs}
       />
       <TestingChat
         currentChatId={currentChatId}
