@@ -15,6 +15,7 @@ interface Message {
 interface ChatLog {
   id: string;
   messages: Message[];
+  subject: string;
 }
 interface Interaction {
   conversation: ChatLog;
@@ -58,6 +59,7 @@ const TestingChat: React.FC<ChatProps> = ({
       const newChatLog: ChatLog = {
         ...currentChatLog,
         messages: [...currentChatLog.messages, newMessage],
+        subject: currentChatLog.subject,
       };
 
       // Update the chat logs state
@@ -79,58 +81,103 @@ const TestingChat: React.FC<ChatProps> = ({
   };
 
   // send a message to the server
-  const sendMessage = (message: string) => {
+  const sendMessage = async (message: string) => {
     // console.log(`Sending the following input to the server: ${message}`);
 
     // Show the loading spinner
     setIsLoading(true);
     // Create an instance of the Interaction class
+    // const interaction: Interaction = {
+    //   conversation: {
+    //     messages: currentChatLog.messages,
+    //     id: "",
+    //   },
+    //   query: message,
+    // };
     const interaction: Interaction = {
       conversation: {
         messages: currentChatLog.messages,
         id: "",
+        subject: currentChatLog.subject, // Added this line
       },
       query: message,
     };
     // Send a POST request to the server
+    const baseUrl =
+      process.env.NODE_ENV === "development" //"production"
+        ? // process.env.NODE_ENV === "production"
+          "http://localhost:3000"
+        : "https://temp-guides.vercel.app";
+
+    // fetch
     try {
-      const baseUrl =
-        process.env.NODE_ENV === "development" //"production"
-          ? "http://localhost:3000"
-          : "https://theguidesai.vercel.app";
+      const response = await fetch(`${baseUrl}/api/app/conversation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(interaction),
+      });
 
-      let result = axios
-        .post(`/api/app/conversation`, interaction, {
-          headers: { "Content-Type": "application/json" },
-        })
-        .then((response) => {
-          // Add the bot's response to the chat log
-          const newMessage: Message = {
-            role: "bot",
-            content: response.data.response,
-          };
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-          const newChatLog: ChatLog = {
-            ...currentChatLog,
-            messages: [...currentChatLog.messages, newMessage],
-          };
+      const responseData = await response.json();
 
-          // Update the chat logs state
-          setChatLogs({
-            ...chatLogs,
-            [currentChatId]: newChatLog,
-          });
-          // Set loading state to false to hide the loading spinner
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          console.log(error);
-        });
-      console.log(result);
+      const newMessage: Message = {
+        role: "bot",
+        content: responseData.response,
+      };
+
+      const newChatLog: ChatLog = {
+        ...currentChatLog,
+        messages: [...currentChatLog.messages, newMessage],
+      };
+
+      setChatLogs({
+        ...chatLogs,
+        [currentChatId]: newChatLog,
+      });
     } catch (error) {
-      console.error(error);
+      console.error("There was a problem with the fetch operation:", error);
+    } finally {
+      setIsLoading(false);
     }
+    // axios
+    // try {
+    //   let result = axios
+    //     .post(`${baseUrl}/api/app/conversation`, interaction, {
+    //       headers: { "Content-Type": "application/json" },
+    //     })
+    //     .then((response) => {
+    //       // Add the bot's response to the chat log
+    //       const newMessage: Message = {
+    //         role: "bot",
+    //         content: response.data.response,
+    //       };
+
+    //       const newChatLog: ChatLog = {
+    //         ...currentChatLog,
+    //         messages: [...currentChatLog.messages, newMessage],
+    //       };
+
+    //       // Update the chat logs state
+    //       setChatLogs({
+    //         ...chatLogs,
+    //         [currentChatId]: newChatLog,
+    //       });
+    //       // Set loading state to false to hide the loading spinner
+    //       setIsLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       setIsLoading(false);
+    //       console.log(error.response);
+    //     });
+    //   console.log(result);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   useEffect(() => {
@@ -152,8 +199,10 @@ const TestingChat: React.FC<ChatProps> = ({
             {currentChatLog.messages.map((message, index) => (
               <div
                 key={index}
-                className={`text-base text-white flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar space-x-2 ${message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
-                  } ${message.role === "user" &&
+                className={`text-base text-white flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar space-x-2 ${
+                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                } ${
+                  message.role === "user" &&
                   "bg-[#1e1e1e] border border-green-700 pr-10"
                 }`}
               >
