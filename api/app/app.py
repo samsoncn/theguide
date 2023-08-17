@@ -44,16 +44,16 @@ async def startup_event():
         create_store()
 
 # user input to prompt to langchain-openai
-# @app.post("/api/app/conversation/{subject}")
-# async def query_endpoint(subject: str, interaction: Interaction):
-#     subject = subject.lower()
-#     response = handler.send_response(subject, interaction.query)
-#     return {"response": response}
-
-@app.post("/api/app/conversation")
-async def query_endpoint(interaction: Interaction):
-    response = handler.send_response(interaction.query)
+@app.post("/api/app/conversation/{subject}")
+async def query_endpoint(subject: str, interaction: Interaction):
+    subject = subject.lower()
+    response = handler.send_response(subject, interaction.query)
     return {"response": response}
+
+# @app.post("/api/app/conversation")
+# async def query_endpoint(interaction: Interaction):
+#     response = handler.send_response(interaction.query)
+#     return {"response": response}
 
 
 @app.get("/reviews")
