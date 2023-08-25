@@ -3,69 +3,135 @@
 from sqlalchemy import Column, Float, Integer, String, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import os
+from dotenv import find_dotenv, load_dotenv
+
 
 Base = declarative_base()
 
-# Define a class named Pizza that inherits from the Base class.
-class Pizza(Base):
-    # Set the name of the database table to 'pizzas'.
-    __tablename__ = 'pizzas'
-    # Define a column named 'id' of type Integer, with a primary key constraint.
-    id = Column(Integer, primary_key=True)
-    # Define a column named 'name' of type String.
-    name = Column(String)
-    # Define a column named 'price' of type float.
-    price = Column(Float)
-    # Define a relationship between the Pizza and Order tables.
-    # This creates a 'orders' attribute on Pizza instances that can be used to access related Order instances.
-    # The 'back_populates' argument specifies the name of the attribute on the Order class that should be used to access related Pizza instances.
-    orders = relationship('Order', back_populates='pizza')
-    
-    # Define a method named 'to_json' that returns a dictionary representation of the Pizza instance.
-    def to_json(self):
+
+# class Question(Base):
+#     __tablename__ = 'questions'
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     subject = Column(String(300))
+#     queryAsked = Column(String(4000))
+#     answers = relationship('Answer', back_populates='question')
+
+#     def to_json(self):
+#         return {
+#             'id': self.id,
+#             'subject': self.subject,
+#             'queryAsked': self.queryAsked
+#         }
+
+
+# class Answer(Base):
+#     __tablename__ = 'answers'
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     question_id = Column(Integer, ForeignKey('questions.id'))
+#     question = relationship('Question', back_populates='answers')
+
+#     def to_json(self):
+#         return {
+#             'id': self.id,
+#             'question': self.question.to_json()
+#         }
+
+class Subject(Base):
+    __tablename__ = 'subject'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50))
+    questions = relationship('Question', back_populates='subject')
+    print("Subject table created")
+
+    def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
-            'price': self.price
+            'questions': [question.to_dict() for question in self.questions]
         }
-        
-# Define a class named Order that inherits from the Base class.
-class Order(Base):
-    # Set the name of the database table to 'orders'.
-    __tablename__ = 'orders'
-    # Define a column named 'id' of type Integer, with a primary key constraint.
-    id = Column(Integer, primary_key=True)
-    # Define a column named 'pizza_id' of type Integer, with a foreign key constraint that references the 'id' column of the 'pizzas' table.
-    pizza_id = Column(Integer, ForeignKey('pizzas.id'))
-    # Define a relationship between the Order and Pizza tables.
-    # This creates a 'pizza' attribute on Order instances that can be used to access the related Pizza instance.
-    # The 'back_populates' argument specifies the name of the attribute on the Pizza class that should be used to access related Order instances.
-    pizza = relationship('Pizza', back_populates='orders')
-    
-    # Define a method named 'to_json' that returns a dictionary representation of the Order instance.
-    # The 'pizza' key in the dictionary is set to the result of calling the 'to_json' method on the related Pizza instance.
-    def to_json(self):
+
+# class Question(Base):
+#     __tablename__ = 'question'
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     text = Column(String(1000))
+#     subject_id = Column(Integer, ForeignKey('subject.id'))
+#     subject = relationship('Subject', back_populates='questions')
+#     answer = relationship('Answer', uselist=False, back_populates='question')
+#     print("Question table created")
+
+#     def to_dict(self):
+#         return {
+#             'id': self.id,
+#             'text': self.text,
+#             'subject_id': self.subject_id,
+#             'answer': self.answer.to_dict() if self.answer else None
+#         }
+
+class Question(Base):
+    __tablename__ = 'question'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String(1000))
+    subject_id = Column(Integer, ForeignKey('subject.id'))
+    subject = relationship('Subject', back_populates='questions')
+    answer = relationship('Answer', uselist=False, back_populates='question')
+    print("Question table created")
+
+    def to_dict(self):
+        return {
+            'subject_id': self.subject_id,
+            'text': self.text,
+            'answer': self.answer.to_dict() if self.answer else None
+        }
+
+class Answer(Base):
+    __tablename__ = 'answer'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String(5000))
+    question_id = Column(Integer, ForeignKey('question.id'))
+    question = relationship('Question', back_populates='answer')
+    print("Answer table created")
+
+    def to_dict(self):
         return {
             'id': self.id,
-            'pizza': self.pizza.to_json()
+            'text': self.text,
+            'question_id': self.question_id
         }
-    
-
 
 class Review(Base):
     __tablename__ = 'reviews'
     id = Column(Integer, primary_key=True)
-    review = Column(String)
-    
+    review = Column(String(2000))
+
     def to_json(self):
         return {
             'id': self.id,
             'review': self.review
         }
-        
-        
-# Setting up the engine and session (this stays in the local computer)
-# Create a database engine that connects to a SQLite database file named 'pizza.db'.
-engine = create_engine('sqlite:///pizza.db')
-# Create a session factory that uses the database engine to create new sessions.
+
+
+# engine = create_engine("sqlite:///questions.db")
+# Session = sessionmaker(bind=engine)
+
+load_dotenv()
+
+host = os.environ.get('HOST')
+password = os.environ.get('PASSWORD')
+user='9kPJNC5oSUSWkkK.root'
+port=4000
+database="test"
+
+ssl={"ca": "./cacert.pem"}
+ssl_mode="VERIFY_IDENTITY"
+
+engine = create_engine(f'mysql://{user}:{password}@{host}:{port}/{database}', connect_args={
+    "ssl_mode": ssl_mode,
+    "ssl": ssl
+})
+
+
+Base.metadata.create_all(engine)
+
+
 Session = sessionmaker(bind=engine)

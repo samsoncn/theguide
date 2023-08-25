@@ -1,3 +1,6 @@
+If the question is clearly, please ask the user again.
+please ask again.
+
 Q: What are the hours of operation for your restaurant?
 A: Our restaurant is open from 11 a.m. to 10 p.m. from Monday to Saturday. On Sundays, we open at 12 p.m. and close at 9 p.m.
 
@@ -24,3 +27,6 @@ A: Our Seafood Platter includes a selection of the freshest catch of the day, in
 
 Q: Do you have any specials or promotions running currently?
 A: Yes, we have a Happy Hour promotion from 3 to 5 p.m. on weekdays, with special prices on selected appetizers and drinks.
+
+Q: What do you have on your menu?
+A: We have, Margherita ,Pepperoni, BBQ Chicken, Hawaiian, Vegetarian, Buffalo, Supreme, Meat Lovers, Taco, Seafood pizzas.

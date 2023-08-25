@@ -3,9 +3,10 @@ import { FaUserGraduate } from "react-icons/fa";
 import { BsRobot } from "react-icons/bs";
 import ResponseLoadingAnimation from "./sub-components/ResponseLoadingAnimation";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import ReactDom from "react-dom";
 import { PiPaperPlaneRightBold } from "react-icons/pi";
 import Login from "./sub-components/Login";
-import Link from "next/link";
 interface Message {
   role: string;
   content: string;
@@ -14,6 +15,7 @@ interface Message {
 interface ChatLog {
   id: string;
   messages: Message[];
+  subject: string;
 }
 interface Interaction {
   conversation: ChatLog;
@@ -51,77 +53,135 @@ const TestingChat: React.FC<ChatProps> = ({
     event.preventDefault();
     // Log the input value
     // console.log(`Input value: ${inputValue}`);
-    const newMessage: Message = { role: "user", content: inputValue };
-    // console.log(`newMessage: ${newMessage}`); // Log the
-    const newChatLog: ChatLog = {
-      ...currentChatLog,
-      messages: [...currentChatLog.messages, newMessage],
-    };
+    if (inputValue !== "") {
+      const newMessage: Message = { role: "user", content: inputValue };
+      // console.log(`newMessage: ${newMessage}`); // Log the
+      const newChatLog: ChatLog = {
+        ...currentChatLog,
+        messages: [...currentChatLog.messages, newMessage],
+        subject: currentChatLog.subject,
+      };
 
-    // Update the chat logs state
-    setChatLogs({
-      ...chatLogs,
-      [currentChatId]: newChatLog,
-    });
+      // Update the chat logs state
+      setChatLogs({
+        ...chatLogs,
+        [currentChatId]: newChatLog,
+      });
 
-    // Set shouldSendMessage to true to trigger the useEffect above
-    setShouldSendMessage(true);
-    // issue: AI model is not reading the user input
-    // reason: because we reset the input value before sending it to the server (fixed)
+      // Set shouldSendMessage to true to trigger the useEffect above
+      setShouldSendMessage(true);
+      // issue: AI model is not reading the user input
+      // reason: because we reset the input value before sending it to the server (fixed)
 
-    // setInputValue("");
+      // Call the sendMessage function directly with the input value
+      // sendMessage(inputValue);
+      // Reset the input field value
+      // setInputValue("");
+    }
   };
 
   // send a message to the server
-  const sendMessage = (message: string) => {
+  const sendMessage = async (message: string) => {
     // console.log(`Sending the following input to the server: ${message}`);
 
     // Show the loading spinner
     setIsLoading(true);
     // Create an instance of the Interaction class
+    // const interaction: Interaction = {
+    //   conversation: {
+    //     messages: currentChatLog.messages,
+    //     id: "",
+    //   },
+    //   query: message,
+    // };
     const interaction: Interaction = {
       conversation: {
         messages: currentChatLog.messages,
         id: "",
+        subject: currentChatLog.subject, // Added this line
       },
       query: message,
     };
     // Send a POST request to the server
-    axios
-      .post(`api/app/conversation`, interaction, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        // Add the bot's response to the chat log
-        const newMessage: Message = {
-          role: "bot",
-          content: response.data.response,
-        };
-        console.log(response.data.response);
-        const newChatLog: ChatLog = {
-          ...currentChatLog,
-          messages: [...currentChatLog.messages, newMessage],
-        };
+    const baseUrl =
+      process.env.NODE_ENV === "development" //"production"
+        ? // process.env.NODE_ENV === "production"
+          "http://localhost:3000"
+        : "https://temp-guides.vercel.app";
 
-        // Update the chat logs state
-        setChatLogs({
-          ...chatLogs,
-          [currentChatId]: newChatLog,
-        });
-        // Set loading state to false to hide the loading spinner
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.log(error);
+    // fetch
+    try {
+      const response = await fetch(`${baseUrl}/api/app/conversation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(interaction),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+
+      const newMessage: Message = {
+        role: "bot",
+        content: responseData.response,
+      };
+
+      const newChatLog: ChatLog = {
+        ...currentChatLog,
+        messages: [...currentChatLog.messages, newMessage],
+      };
+
+      setChatLogs({
+        ...chatLogs,
+        [currentChatId]: newChatLog,
+      });
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    } finally {
+      setIsLoading(false);
+    }
+    // axios
+    // try {
+    //   let result = axios
+    //     .post(`${baseUrl}/api/app/conversation`, interaction, {
+    //       headers: { "Content-Type": "application/json" },
+    //     })
+    //     .then((response) => {
+    //       // Add the bot's response to the chat log
+    //       const newMessage: Message = {
+    //         role: "bot",
+    //         content: response.data.response,
+    //       };
+
+    //       const newChatLog: ChatLog = {
+    //         ...currentChatLog,
+    //         messages: [...currentChatLog.messages, newMessage],
+    //       };
+
+    //       // Update the chat logs state
+    //       setChatLogs({
+    //         ...chatLogs,
+    //         [currentChatId]: newChatLog,
+    //       });
+    //       // Set loading state to false to hide the loading spinner
+    //       setIsLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       setIsLoading(false);
+    //       console.log(error.response);
+    //     });
+    //   console.log(result);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
-  // A useEffect that sends the message when shouldSendMessage is set to true
-  //  Old
-
   useEffect(() => {
-    if (shouldSendMessage) {
+    if (shouldSendMessage && inputValue != "") {
       // console.log(inputValue);
       sendMessage(inputValue);
       setShouldSendMessage(false);
@@ -132,38 +192,44 @@ const TestingChat: React.FC<ChatProps> = ({
 
   return (
     <>
-      <div className="w-[80%] bg-[#191919]">
+      <div className="w-full mb-4 bg-[#191919]">
         <Login />
-        <div className="h-[85%] overflow-y-auto flex flex-col justify-center items-center mt-2">
-          {currentChatLog.messages.map((message, index) => (
-            <div
-              key={index}
-              className={`text-base text-white flex items-center mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar bg-gradient-to-r from-[#0b235a] to-slate-600 ${
-                message.role === "bot" &&
-                "bg-gradient-to-r from-slate-900 to-[#0d072f] text-slate-100"
-              }`}
-            >
-              <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
-                {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
-              </span>
-              <div className="" key={index}>
-                {message.content}
+        <div className="h-[85%] overflow-y-auto mt-5">
+          <div className="mt-50 overflow-auto flex flex-col justify-center items-center">
+            {currentChatLog.messages.map((message, index) => (
+              <div
+                key={index}
+                className={`text-base text-white flex mb-4 p-4 rounded-lg w-[80%] shadow-lg shadow-[#000000] hide-scrollbar space-x-2 ${
+                  message.role === "bot" && "bg-slate-800 text-slate-100 pr-10"
+                } ${
+                  message.role === "user" &&
+                  "bg-[#1e1e1e] border border-green-700 pr-10"
+                }`}
+              >
+                <span className="mr-4 rounded-2xl bg-slate-600 h-fit p-2 text-white shadow shadow-[#000000]">
+                  {message.role === "user" ? <FaUserGraduate /> : <BsRobot />}
+                </span>
+                <div className="" key={index}>
+                  <ReactMarkdown linkTarget="_blank">
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
               </div>
-            </div>
-          ))}
-          {isLoading && (
-            <div
-              key={currentChatLog.messages.length}
-              className="flex justify-start "
-            >
-              <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm ">
-                <ResponseLoadingAnimation />
+            ))}
+            {isLoading && (
+              <div
+                key={currentChatLog.messages.length}
+                className="flex justify-start "
+              >
+                <div className="bg-gray-800 rounded-lg p-4 text-white">
+                  <ResponseLoadingAnimation />
+                </div>
               </div>
-            </div>
-          )}{" "}
+            )}{" "}
+          </div>
         </div>
-        <div className="h-[12%] z-[50] flex items-center bg-transparent border-transparent">
-          <div className="flex flex-col w-full items-center">
+        <div className="h-[10%] z-[50] flex items-center bg-transparent border-transparent">
+          <div className="flex flex-col w-full items-center mb-4">
             <form className="w-[75%] relative flex" onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -179,11 +245,8 @@ const TestingChat: React.FC<ChatProps> = ({
                 <PiPaperPlaneRightBold className="text-slate-200 text-xl" />
               </button>
             </form>
-            <Link href="/api/python">
-              <code className="font-mono font-bold">api/index.py</code>
-            </Link>
-            <p className="text-[#6d6d6d] font-light mt-3 text-sm text-center">
-              TheGuides.ai Version 1.0. Our mission is to guide people to learn
+            <p className="text-[#6d6d6d] w-[75%] font-light mt-3 text-sm text-center">
+              theguides.ai Version 1.0. Our mission is to guide people to learn
               with AI. Your feedback will help us improve!
             </p>
           </div>

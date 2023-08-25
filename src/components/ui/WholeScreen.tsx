@@ -13,7 +13,17 @@ interface Message {
 interface ChatLog {
   id: string;
   messages: Message[];
+  subject: string;
 }
+// interface Interaction {
+//   conversation: Conversation;
+//   query: string;
+// }
+// interface ChatComponentProps {
+//   currentChatId: string;
+//   interaction: Interaction;
+//   setChatLogs: (chatLogs: Record<string, Conversation>) => void;
+// }
 
 const WholeScreen = () => {
   // Generate an initial chat ID using the uuidv4 library
@@ -21,7 +31,7 @@ const WholeScreen = () => {
 
   // State variables for chat logs and current chat ID
   const [chatLogs, setChatLogs] = useState<Record<string, ChatLog>>({
-    [initialChatId]: { id: initialChatId, messages: [] },
+    [initialChatId]: { id: initialChatId, messages: [], subject: "" }, // Adjusted this line to include a default subject
   });
   const [currentChatId, setCurrentChatId] = useState(initialChatId);
 
@@ -30,8 +40,8 @@ const WholeScreen = () => {
     // Generate a new chat ID
     const newChatId = uuidv4();
 
-    // Create a new chat log with an empty log array
-    const newChatLog: ChatLog = { id: newChatId, messages: [] };
+    // Create a new chat log with an empty log array and a default subject
+    const newChatLog: ChatLog = { id: newChatId, messages: [], subject: "" }; // Adjusted this line to include a default subject
 
     // Update the chat logs state by adding the new chat log
     setChatLogs({
@@ -43,12 +53,19 @@ const WholeScreen = () => {
     setCurrentChatId(newChatId);
   };
 
+  // Create an interaction object for the current conversation
+  // const interaction: Interaction = {
+  //   conversation: chatLogs[currentChatId],
+  //   query: "",
+  // };
+
   return (
-    <div className="h-screen w-screen flex">
+    <div className="h-screen overflow-hidden w-screen flex bg-[#191919]">
       <TestingSidebar
         onNewChat={handleNewChat}
-        chatLogs={chatLogs}
+        // chatLogs={chatLogs}
         setCurrentChatId={setCurrentChatId}
+        // setChatLogs={setChatLogs}
       />
       <TestingChat
         currentChatId={currentChatId}
