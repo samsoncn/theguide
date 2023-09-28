@@ -63,9 +63,9 @@ const WholeScreen = () => {
     <div className="h-screen overflow-hidden w-screen flex bg-[#191919]">
       <TestingSidebar
         onNewChat={handleNewChat}
-        chatLogs={chatLogs}
+        // chatLogs={chatLogs}
         setCurrentChatId={setCurrentChatId}
-        setChatLogs={setChatLogs}
+        // setChatLogs={setChatLogs}
       />
       <TestingChat
         currentChatId={currentChatId}

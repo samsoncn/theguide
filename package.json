@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@apideck/components": "^0.8.9",
+    "@clerk/clerk-sdk-node": "^4.12.8",
+    "@clerk/nextjs": "^4.24.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@types/node": "20.3.1",
